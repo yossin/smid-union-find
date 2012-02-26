@@ -2,7 +2,6 @@ package mta.ads.smid.app.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Paint;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -33,11 +32,9 @@ import edu.uci.ics.jung.visualization.decorators.EdgeShape.Line;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.layout.LayoutTransition;
 import edu.uci.ics.jung.visualization.picking.MultiPickedState;
-import edu.uci.ics.jung.visualization.picking.PickedInfo;
 import edu.uci.ics.jung.visualization.picking.PickedState;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import edu.uci.ics.jung.visualization.util.Animator;
-import edu.uci.ics.jung.visualization3d.decorators.PickableVertexPaintTransformer;
 
 public class IUFkForestJPanel extends JPanel implements IUFkEvent{
 	private static final long serialVersionUID = -4239061624657394397L;

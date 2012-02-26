@@ -2,7 +2,6 @@ package mta.ads.smid.app.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +24,6 @@ import mta.ads.smid.model.IUFkForestException;
 import edu.uci.ics.jung.algorithms.layout.TreeLayout;
 import edu.uci.ics.jung.graph.DelegateForest;
 import edu.uci.ics.jung.graph.DelegateTree;
-import edu.uci.ics.jung.graph.Forest;
 import edu.uci.ics.jung.visualization.DefaultVisualizationModel;
 import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.VisualizationModel;
@@ -68,7 +66,9 @@ public class IUFkForestUI extends JApplet implements IUFkEvent{
     }
     
     private class TreePanel extends JPanel{
-    	TreePanel(){
+		private static final long serialVersionUID = 1L;
+
+		TreePanel(){
     		super(new BorderLayout());
             timer = new Timer();
             
@@ -90,6 +90,7 @@ public class IUFkForestUI extends JApplet implements IUFkEvent{
     }
     
     private class ZoomPanel extends JPanel{
+		private static final long serialVersionUID = 1L;
     	ZoomPanel(){
     		super(new GridLayout(1,2));
             setBorder(BorderFactory.createTitledBorder("Zoom"));
@@ -115,6 +116,7 @@ public class IUFkForestUI extends JApplet implements IUFkEvent{
     }
     
     private class ModePanel extends JPanel{
+		private static final long serialVersionUID = 1L;
     	ModePanel() {
         	DefaultModalGraphMouse<Integer, Integer> graphMouse = new DefaultModalGraphMouse<Integer, Integer>();
             viewer.setGraphMouse(graphMouse);
@@ -126,6 +128,7 @@ public class IUFkForestUI extends JApplet implements IUFkEvent{
     }
     
     private class IUFkPanel extends JPanel{
+		private static final long serialVersionUID = 1L;
     	IUFkPanel(){
     		super(new GridLayout(1,2));
             setBorder(BorderFactory.createTitledBorder("IUFk:(max size 99)"));
@@ -186,6 +189,7 @@ public class IUFkForestUI extends JApplet implements IUFkEvent{
     }
     
     private class ControlsPanel extends JPanel{
+		private static final long serialVersionUID = 1L;
     	ControlsPanel(){
             // add zoom panel
             JPanel zoomPanel = new ZoomPanel();
@@ -209,10 +213,6 @@ public class IUFkForestUI extends JApplet implements IUFkEvent{
         JPanel tree = new TreePanel();
         JPanel controls = new ControlsPanel(); 
         
-        Container content = getContentPane();
-        
-        
-        
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(tree);
         panel.add(controls, BorderLayout.SOUTH);
@@ -220,11 +220,6 @@ public class IUFkForestUI extends JApplet implements IUFkEvent{
         add(panel);
 		createForest(33,2);
         
-        //content.add(tree);
-        //content.add(controls, BorderLayout.SOUTH);
-
-        
-        //getContentPane().add(viewer);
     }
     
     
