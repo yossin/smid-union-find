@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import mta.ads.smid.app.Constants;
+import mta.ads.smid.Constants;
 
 public class OutputWriter {
 	final private BufferedWriter writer;

@@ -1,6 +1,6 @@
 package mta.ads.smid.model;
 
-import mta.ads.smid.app.Constants;
+import mta.ads.smid.Constants;
 
 public class Statistics{
 	private int unionCouner=0;
