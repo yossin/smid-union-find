@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="mta.ads.smid.app.rich.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="mta.ads.smid.app.rich.Perspective"
+            id="ads-project-ui.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="IUF-k Forest"
+            allowMultiple="true"
+            icon="icons/tree2.jpg"
+            class="mta.ads.smid.app.rich.views.View"
+            id="ads-project-ui.view">
+      </view>
+      <view
+            name="Union History"
+            allowMultiple="false"
+            icon="icons/sample3.gif"
+            class="mta.ads.smid.app.rich.views.UnionHistoryView"
+            id="ads-project-ui.unionHistoryView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Mail"
+            id="ads-project-ui.category">
+      </category>
+      <command
+            name="Add IUF-k Forest"
+            description="Opens a mailbox"
+            categoryId="ads-project-ui.category"
+            id="ads-project-ui.open">
+      </command>
+      <command
+            name="Union"
+            description="Union two leaves"
+            categoryId="ads-project-ui.category"
+            id="ads-project-ui.union">
+      </command>
+      <command
+            name="Union Sequence"
+            description="Union Sequence"
+            categoryId="ads-project-ui.category"
+            id="ads-project-ui.unionSequence">
+      </command>
+      <command
+            name="Open Union File"
+            description="Open Union File"
+            categoryId="ads-project-ui.category"
+            id="ads-project-ui.openUnionFile">
+      </command>      
+      
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="ads-project-ui.open"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+2">
+      </key>
+      <key
+            commandId="ads-project-ui.union"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+3">
+      </key>
+      <key
+            commandId="org.eclipse.ui.file.exit"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+X">
+      </key>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="ads-project-ui.application"
+            name="IUFk Forest">
+         <property
+               name="aboutText"
+               value="Union Find Smid Algorithm - by Yosi Zilberberg and Yossi Naor">
+         </property>
+         <property
+               name="windowImages"
+               value="icons/tree.jpg">
+         </property>
+         <property
+               name="aboutImage"
+               value="product_lg.gif">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

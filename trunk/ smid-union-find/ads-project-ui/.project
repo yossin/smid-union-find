@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>ads-project-ui</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.pde.ManifestBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.pde.SchemaBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.pde.PluginNature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>project-lib</name>
+			<type>2</type>
+			<locationURI>WORKSPACE_LOC/ads-project/lib</locationURI>
+		</link>
+		<link>
+			<name>project-src</name>
+			<type>2</type>
+			<locationURI>WORKSPACE_LOC/ads-project/src</locationURI>
+		</link>
+		<link>
+			<name>src-1</name>
+			<type>2</type>
+			<location>D:/Users/Yos/Workspaces/mta/ads-project/src</location>
+		</link>
+	</linkedResources>
+</projectDescription>
