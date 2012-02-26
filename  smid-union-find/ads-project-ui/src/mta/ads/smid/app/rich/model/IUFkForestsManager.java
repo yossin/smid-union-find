@@ -1,8 +1,9 @@
-package mta.ads.smid.app.rich.commands;
+package mta.ads.smid.app.rich.model;
 
 import java.util.Iterator;
 import java.util.Set;
 
+import mta.ads.smid.app.rich.commands.ActionUtil;
 import mta.ads.smid.app.rich.views.UnionHistoryView;
 import mta.ads.smid.app.ui.IUFkForestJPanel.IUFkForestUnionModel;
 import mta.ads.smid.model.IUFkForestException;

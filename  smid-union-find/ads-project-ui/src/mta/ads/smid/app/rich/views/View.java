@@ -9,7 +9,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
-import mta.ads.smid.app.rich.commands.IUFkForestsManager;
+import mta.ads.smid.app.rich.model.IUFkForestsManager;
 import mta.ads.smid.app.ui.IUFkForestJPanel;
 import mta.ads.smid.app.ui.IUFkForestJPanel.IUFkForestUnionModel;
 

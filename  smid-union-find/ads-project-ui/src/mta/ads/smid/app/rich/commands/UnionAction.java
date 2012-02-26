@@ -1,6 +1,7 @@
 package mta.ads.smid.app.rich.commands;
 
-import mta.ads.smid.app.rich.commands.IUFkForestsManager.SelectionError;
+import mta.ads.smid.app.rich.model.IUFkForestsManager;
+import mta.ads.smid.app.rich.model.IUFkForestsManager.SelectionError;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;

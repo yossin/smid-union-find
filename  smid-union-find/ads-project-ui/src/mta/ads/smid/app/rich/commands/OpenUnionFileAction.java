@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.LinkedList;
 
 import mta.ads.smid.app.rich.Activator;
+import mta.ads.smid.app.rich.model.IUFkForestsManager;
 import mta.ads.smid.app.rich.views.UnionHistoryView;
 import mta.ads.smid.app.rich.views.View;
 import mta.ads.smid.app.util.UnionPair;
