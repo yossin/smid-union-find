@@ -3,14 +3,9 @@ package mta.ads.smid.app.rich.model;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.jface.dialogs.MessageDialog;
-
-import mta.ads.smid.app.rich.commands.ActionUtil;
-import mta.ads.smid.app.rich.views.UnionHistoryView;
 import mta.ads.smid.app.ui.IUFkForestJPanel.IUFkForestUnionModel;
 import mta.ads.smid.app.util.UnionPair;
 import mta.ads.smid.app.util.UnionPairReader;
