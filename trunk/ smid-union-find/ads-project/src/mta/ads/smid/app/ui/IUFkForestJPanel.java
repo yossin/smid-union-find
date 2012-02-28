@@ -45,9 +45,11 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
     final private IUFkForestUnionModel unionModel;
 	final private MultiPickedState<Integer> multiPickedState;
     private Timer timer = new Timer();
+    private int k;
     
     public static interface IUFkForestUnionModel{
     	void union(int r, int s) throws IUFkForestException;
+    	void initialize(int n);
     }
     public class IUFkForestUnionModelImpl implements IUFkForestUnionModel{
 		private IUFkForestUnionModelImpl(){}
@@ -55,6 +57,11 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
 			if (iufkForest != null){
 				iufkForest.union(r, s);
 			}
+		}
+		@Override
+		public void initialize(int n) {
+			initializeForest(n);
+			
 		}
     }
     
@@ -80,7 +87,7 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
     
     public IUFkForestJPanel(MultiPickedState<Integer> multiPickedState, int k, int n){
     	super(new BorderLayout());
-
+    	this.k=k;
     	this.multiPickedState=multiPickedState;
     	unionModel = new IUFkForestUnionModelImpl();
     	forest = new DelegateForest<Integer,String>();
@@ -105,18 +112,18 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
        
 
     	add(new GraphZoomScrollPane(viewer));
-        initializeForest(k,n);
+        initializeForest(n);
     }
     
-    private void createIUFkForest(int k, int n){
+    private void createIUFkForest(int n){
     	if (iufkForest != null){
     		iufkForest.removeObserver(this);
     	}
         iufkForest = new IUFkForest(k, n);
         iufkForest.addObserver(this);
     }
-    public void initializeForest(int k, int n){
-    	createIUFkForest(k,n);
+    private void initializeForest(int n){
+    	createIUFkForest(n);
     	forest = new DelegateForest<Integer,String>();
     	for (int i=0;i<n;i++){
     		DelegateTree<Integer,String> tree = new DelegateTree<Integer,String>();
@@ -129,7 +136,6 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
     	}
     	scheduleTransition();
     }
-    
     private static String createEdge(int v1, int v2){
     	return new StringBuilder().append(v1).append("-").append(v2).toString();
     }
@@ -165,6 +171,11 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
 	    	}
     	}
     }
+
+	public void initializeForest(int k, int n){
+		this.k=k;
+		initializeForest(n);
+	}
 
 	@Override
 	public void union(int oldLeaf, int newLeaf, int oldRoot, int newRoot, List<Integer> children) {
