@@ -1,22 +1,16 @@
 package mta.ads.smid.app.rich.commands;
 
 import java.io.File;
-import java.util.LinkedList;
 
 import mta.ads.smid.app.rich.Activator;
 import mta.ads.smid.app.rich.model.IUFkForestsManager;
-import mta.ads.smid.app.rich.views.UnionHistoryView;
-import mta.ads.smid.app.rich.views.View;
-import mta.ads.smid.app.util.UnionPair;
-import mta.ads.smid.app.util.UnionPairReader;
+import mta.ads.smid.app.rich.model.IUFkForestsManager.UnionFileParseError;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 
 
 public class OpenUnionFileAction extends Action {
@@ -55,27 +49,10 @@ public class OpenUnionFileAction extends Action {
     	if (unionFile == null){
     		return;
     	}
-    	UnionPairReader reader = new UnionPairReader(unionFile);
-    	Integer elementsNumber = reader.readElementNumber();
-    	if (elementsNumber == null){
-    		MessageDialog.openInformation(window.getShell(), "Read File Error", "Wrong format for union file. \r\nUnable to read find elements number.");
-    	}
-    	manager.setN(elementsNumber);
-    	LinkedList<UnionPair> unionList = new LinkedList<UnionPair>();
-    	for (UnionPair unionPair : reader) {
-			unionList.add(unionPair);
+    	try {
+			manager.loadUnions(unionFile);
+		} catch (UnionFileParseError e) {
+    		MessageDialog.openInformation(window.getShell(), "Read File Error", e.getMessage());
 		}
-    	
-    	IViewReference[] views = PlatformUI.getWorkbench().getActiveWorkbenchWindow().
-    	getActivePage().getViewReferences();
-    	for (IViewReference ref :views){
-    		if (ref.getId().equals(UnionHistoryView.ID)){
-    			UnionHistoryView unionsView = (UnionHistoryView) ref.getView(true);
-    	    	unionsView.setUnionList(unionList);
-    		} else if (ref.getId().equals(View.ID)){
-    			View view = (View) ref.getView(true);
-    			view.initializeForest();
-    		}
-    	}
     }
 }
