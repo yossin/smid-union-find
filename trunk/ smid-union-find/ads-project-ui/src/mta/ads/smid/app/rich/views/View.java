@@ -28,7 +28,6 @@ public class View extends ViewPart {
 	}
 	
 	public void createPartControl(Composite parent) {
-		
 		Composite swtAwtComponent = new Composite(parent, SWT.EMBEDDED | SWT.LEFT_TO_RIGHT);
 		Frame frame = SWT_AWT.new_Frame( swtAwtComponent );
 		panel = new IUFkForestJPanel(model.getPickedState(),k,model.getN());
@@ -37,7 +36,6 @@ public class View extends ViewPart {
 
 		unionModel = panel.getUnionModel();
 		model.addObserver(unionModel);
-		
 	}
 
 	public void setFocus() {

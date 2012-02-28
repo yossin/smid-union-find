@@ -1,10 +1,15 @@
 package mta.ads.smid.app.rich.views;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.LinkedList;
-import java.util.Vector;
+import java.util.List;
 import java.util.Queue;
 import java.util.Vector;
 
+import mta.ads.smid.app.rich.model.IUFkForestsManager;
 import mta.ads.smid.app.util.UnionPair;
 
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -18,15 +23,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.List;
 import org.eclipse.ui.part.ViewPart;
 
 public class UnionHistoryView extends ViewPart {
 	public static final String ID = "ads-project-ui.unionHistoryView";
-	private List list;
-	private ListViewer listViewer ;
-	private final Vector<UnionPair> unionList = new Vector<UnionPair>();
-	private int lastUnionPairSequence=-1;
+    private final IUFkForestsManager manager = IUFkForestsManager.getInstance();
+    private ListViewer listViewer;
+	final Vector<UnionPair> unionList = createUnions1();
 
 	private static Vector<UnionPair> createUnions(int k, int n) {
 		Vector<UnionPair> unions = new Vector<UnionPair>();
@@ -90,30 +93,52 @@ public class UnionHistoryView extends ViewPart {
 		return list;
 	}
 	
+	class ListDynamicProxyClass implements InvocationHandler
+	{
+	  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
+	  {
+	    try {
+	    	
+	      Object result = method.invoke(unionList, args);
+	      listViewer.refresh();
+	      listViewer.setSelection(null);
+		    return result;
+	    } catch (InvocationTargetException e) {
+	      throw e.getTargetException();
+	    } catch (Exception e) {
+	      throw e;
+	    }
+	  }
+	}
 
+	
+	
+	private java.util.List<?> createDynamicProxy(){
+		InvocationHandler handler = new ListDynamicProxyClass();
+		Class<?>[] interfaces ={List.class};
+		ClassLoader loader = getClass().getClassLoader();
+		return (List<?>) Proxy.newProxyInstance(loader , interfaces, handler);
+	}
+	
+	
 	public void createPartControl(Composite parent) {
-		list = new List(parent, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
-		setUnionList(createUnions1());	
-		
+
 		listViewer = new ListViewer(parent, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
 		listViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-				
 	    listViewer.setContentProvider(new IStructuredContentProvider() {
 	        public Object[] getElements(Object inputElement) {
-	          Vector v = (Vector)inputElement;
+	          Vector<UnionPair> v = (Vector<UnionPair>)inputElement;
 	          return v.toArray();
 	        }
 	        
 	        public void dispose() {
-	          System.out.println("Disposing ...");
 	        }
 
 	        public void inputChanged(
 	          Viewer viewer,
 	          Object oldInput,
 	          Object newInput) {
-	          System.out.println("Input changed: old=" + oldInput + ", new=" + newInput);
 	        }
 	      });
 	    
@@ -121,14 +146,16 @@ public class UnionHistoryView extends ViewPart {
 			
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				System.out.println("selection event"+((StructuredSelection)event.getSelection()).getFirstElement());
+				UnionPair pair = (UnionPair) ((StructuredSelection)event.getSelection()).getFirstElement();
+				manager.setSelectedPair(pair);
 			}
 		});
+	    
+	    
 	      
-	      //listViewer.setContentProvider(new ArrayContentProvider());
-	      
+	    List<UnionPair> proxy = (List<UnionPair>) createDynamicProxy();
+	    manager.setUnionList(proxy);
 	      listViewer.setInput(unionList);
-	      //listViewer.setInput(unionList);
 	      
 	      
 	      listViewer.setLabelProvider(new LabelProvider() {
@@ -139,72 +166,17 @@ public class UnionHistoryView extends ViewPart {
 	        public String getText(Object element) {
 	          return element.toString();
 	        }
-	      });		
-		
-		
-//		ObservableListContentProvider	 contentProvider = new ObservableListContentProvider();
-//		viewer.setContentProvider(contentProvider);
-//		IObservableSet knownElements = contentProvider.getKnownElements();
-//		final IObservableMap firstNames = BeanProperties.value(Person.class,
-//				"firstName").observeDetail(knownElements);
-
+	      });
+	      
+	      
 		
 	}
 	
-	
-	
-	
-	public Vector<UnionPair> getUnionPairSequence(){
-		Vector<UnionPair> result = new Vector<UnionPair>();
-		String[] selections = list.getSelection();
-		if (selections.length == 1){
-			String selection =selections[0];
-			lastUnionPairSequence=-1;
-			for (UnionPair pair : unionList){
-				lastUnionPairSequence++;
-				result.add(pair);
-				if (pair.toString().equals(selection)){
-					return result;
-				}
-			}
-		}
-		return result;
-	}
-	
-	public void addUnion(int x, int y){
-		if (lastUnionPairSequence>-1){
-			list.setSelection(lastUnionPairSequence);
-			if (lastUnionPairSequence+1 <unionList.size()){
-				Vector<UnionPair> retain = getUnionPairSequence();
-				list.remove(lastUnionPairSequence+1, unionList.size()-1);
-				unionList.retainAll(retain);
-			}
-		}
-		
-
-		lastUnionPairSequence=-1;
-		UnionPair pair = new UnionPair(x, y);
-		unionList.add(pair);
-		list.add(pair.toString());
-		list.setSelection(unionList.size()-1);
-		listViewer.refresh();
-		//list.redraw();
-	}
 	
 
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
 	public void setFocus() {
-	}
-
-	public void setUnionList(java.util.List<UnionPair> unionList) {
-		this.unionList.clear();
-		list.removeAll();
-		this.unionList.addAll(unionList);
-		lastUnionPairSequence=-1;
-		for (UnionPair pair: unionList){
-			list.add(pair.toString());
-		}
 	}
 }
