@@ -2,40 +2,101 @@ package mta.ads.smid.model;
 
 import mta.ads.smid.Constants;
 
+/**
+ * Save Union-Find Statistics
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
 public class Statistics{
+	/**
+	 * union general counter
+	 */
 	private int unionCouner=0;
+	/**
+	 * union case 1 counter
+	 */
 	private int unionCase1Counter=0;
+	/**
+	 * union case 2 counter
+	 */
 	private int unionCase2Counter=0;
+	/**
+	 * union case  counter
+	 */
 	private int unionCase3Counter=0;
 	
+	/**
+	 * find general counter
+	 */
 	private int findCouner=0;
+	/**
+	 * direct find counter, using root cache - <b>O(1)</b>
+	 */
 	private int findDirectlyCounter=0;
+	/**
+	 * recursive find counter - <b>O(log/k(n))</b>
+	 */
 	private int findRecursivleyCounter=0;
+	/**
+	 * maximal tree height
+	 */
 	private int maxHeight=1;
+	/**
+	 * <i>Root</i> element counter
+	 */
 	private int rootCounter;
+	/**
+	 * <i>NonRoot</i> element counter
+	 */
 	private int nonRootCounter;
+	/**
+	 * element number
+	 */
 	private int n;
+	/**
+	 * k-tree size
+	 */
 	private int k;
+	
+	
+	/**
+	 * @param rootCounter initial <i>Root</i> number
+	 * @param nonRootCounter initial <i>NonRoot</i> number
+	 * @param n elements number
+	 * @param k k-tree size
+	 */
 	Statistics(int rootCounter, int nonRootCounter, int n, int k){
 		this.rootCounter=rootCounter;
 		this.nonRootCounter=nonRootCounter;
 		this.n=n;
 		this.k=k;
 	}
+	/**
+	 * Increase Recursive Find
+	 */
 	void increaseRecursiveFind(){
 		findCouner++;
 		findRecursivleyCounter++;
 	}
+	/**
+	 * Increase Direct Find
+	 */
 	void increaseDirectFind(){
 		findCouner++;
 		findDirectlyCounter++;
 	}
-	void performUnionCase1(){
+	/**
+	 * Increase Union Case 1
+	 */
+	void increaseUnionCase1(){
 		unionCase1Counter++;
 		unionCouner++;
 		rootCounter--;
 	}
-	void performUnionCase2(int height){
+	/**
+	 * Increase Union Case 2
+	 */
+	void increaseUnionCase2(int height){
 		unionCase2Counter++;
 		unionCouner++;
 		nonRootCounter+=2;
@@ -43,15 +104,24 @@ public class Statistics{
 		if (height>maxHeight)
 			maxHeight=height;
 	}
-	void performUnionCase3(){
+	/**
+	 * Increase Union Case 3
+	 */
+	void increaseUnionCase3(){
 		unionCase3Counter++;
 		unionCouner++;
 		rootCounter--;
 	}
+	/**
+	 * @return maximal height
+	 */
 	public int getMaxHeight() {
 		return maxHeight;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		int total = nonRootCounter+rootCounter;
@@ -75,7 +145,5 @@ public class Statistics{
 		}
 		return builder.toString();
 	}
-	
-	//TODO: split find cases: O(1), O(log/k(n))
 
 }
