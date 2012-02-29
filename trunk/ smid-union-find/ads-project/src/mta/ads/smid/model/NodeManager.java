@@ -1,36 +1,112 @@
 package mta.ads.smid.model;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import mta.ads.smid.model.IUFkForestException.NameOutOfRangeException;
 
 
 
+/**
+ * Data Structure for managing k-tree nodes
+ * <br> the nodes are saved in an array and are issued by IDs (the id is the index of the node in the array)
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
+/**
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
+/**
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
 class NodeManager{
+	/**
+	 * node array. it's size is (n*7)/3+1;
+	 */
 	private final Node nodes[];
+	/**
+	 * available list IDs (indexes) of nodes in nodes array.  
+	 * <br>unavailable value: NULL_ID = (-1)
+	 * <br>available value: points to the next available position (index)
+	 */
 	private final int availableNodes[];
+	/**
+	 * first available node (index) in the available list 
+	 * <br>NULL_ID = (-1) if none
+	 */
 	private int firstAvailableNode;
+	/**
+	 * Cache root IDs (indexes) by name
+	 */
 	private final int rootIds[];
+	/**
+	 * k-tree size
+	 */
 	private final int k;
+	/**
+	 * NULL_ID constant = -1
+	 */
 	final private static int NULL_ID=-1;
 	
+	/**
+	 * Node interface.
+	 * <u>implementations are:</u>
+	 * <ul>
+	 * <li>Root</il>
+	 * <li>NonRoot</il>
+	 * <li>Leaf</il>
+	 * </ul>
+	 * @author Yossi Naor & Yosi Zilberberg
+	 *
+	 */
 	static interface Node {}
+	/**
+	 * NonRoot element. 
+	 * <br>a non root element contains a parent.
+	 * <br>the parent can be replaced only by NodeManager
+	 * @author Yossi Naor & Yosi Zilberberg
+	 *
+	 */
 	static class NonRoot implements Node {
+		/**
+		 * parent id 
+		 */
 		private int parentId;
+		/**
+		 * @param parentId parent id
+		 */
 		NonRoot(int parentId) {
 			this.parentId = parentId;
 		}
+		/**
+		 * @return parent id
+		 */
 		int getParentId() {
 			return parentId;
 		}
 	}
+	/**
+	 * Leaf element. 
+	 * <br>a leaf element extends <i>NonRoot</i> element.
+	 * <br>it contains the name of the leaf. once the name is set it cannot be changed.
+	 * @author Yossi Naor & Yosi Zilberberg
+	 *
+	 */
 	static class Leaf extends NonRoot{
+		/**
+		 * the name of the leaf
+		 */
 		final int name;
+		/**
+		 * @param name the name of the leaf
+		 * @param parentId parent id
+		 */
 		Leaf(int name, int parentId) {
 			super(parentId);
 			this.name=name;
 		}
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
 		@Override
 		public String toString() {
 			StringBuilder out = new StringBuilder();
@@ -43,7 +119,6 @@ class NodeManager{
 		final private int id;
 		final int height;
 		final int name;
-		//TODO: check with AMIR if we can use List<Integer> instead
 		final private int sonsId[];
 		private int numberOfSons=0;
 
@@ -78,9 +153,7 @@ class NodeManager{
 	}
 	NodeManager(int k, int n) {
 		this.k=k;
-		//TODO: exact number?
 		int maxNodes=(n*7)/3+1;
-		//int maxNodes=2*n+1;
 		nodes=new Node[maxNodes];
 		availableNodes=new int[maxNodes];
 		rootIds=new int[n];
@@ -134,12 +207,11 @@ class NodeManager{
 		rootIds[name]=NULL_ID;
 	}
 
-	Root createRoot(int name, int height, int rootChild1, int rootChild2){
+	Root createRoot(int name, int height, Root rootChild1, Root rootChild2){
 		int rootId = firstAvailableNode;
 		Root root = new Root(rootId, name, height);
-		// TODO: change root ID passing
-		addRootAsChild(rootChild1, root, rootId);
-		addRootAsChild(rootChild2, root, rootId);
+		addRootAsChild(rootChild1, root);
+		addRootAsChild(rootChild2, root);
 		rootIds[name]=rootId;
 		assign(root, rootId);
 		return root;
@@ -159,12 +231,12 @@ class NodeManager{
 			throw e;
 		}
 	}
-	// TODO: change root ID passing
-	private void addRootAsChild(int childRoot, Root parentRoot, int parentRootId){
-		int childRootId = rootIds[childRoot];
+
+	private void addRootAsChild(Root childRoot, Root parentRoot){
+		int childRootId = childRoot.getId();
 		parentRoot.addSon(childRootId);
-		nodes[childRootId] = new NonRoot(parentRootId);
-		rootIds[childRoot]=NULL_ID;
+		nodes[childRootId] = new NonRoot(parentRoot.getId());
+		rootIds[childRoot.name]=NULL_ID;
 	}
 	
 	// link sons of root into a different node (by it's Id) 
