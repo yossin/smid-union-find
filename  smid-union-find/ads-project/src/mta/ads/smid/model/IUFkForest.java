@@ -117,7 +117,7 @@ public class IUFkForest extends Observable<IUFkEvent>{
 		int name = root1.name;
 		int height = root1.height+1;
 		// create a new root that contains r,s as sons
-		Root t = nodeManager.createRoot(name, height, root1.name, root2.name);
+		Root t = nodeManager.createRoot(name, height, root1, root2);
 		// notify listeners
 		dispatcher.union(leaf1, leaf2, t.getId(), root1.getId(), root2.getId());
 		// add statistics
