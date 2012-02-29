@@ -76,7 +76,10 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
 			int n = iufkForest.getN();
 			if (id <n){
 				return Color.GREEN;
-			} else if (iufkForest.isRoot(id)){
+			}
+			
+			Integer parent = forest.getParent(id);
+			if (parent==null){
 				return Color.CYAN;
 			}
 			return Color.RED;
@@ -178,33 +181,33 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
 	}
 
 	@Override
-	public void union(int oldLeaf, int newLeaf, int oldRoot, int newRoot, List<Integer> children) {
-		pick(null, oldLeaf, newLeaf);
+	public void union(int fromLeafId, int intoLeafId, int fromRootId, int intoRootId) {
+		pick(null, fromLeafId, intoLeafId);
 		
-		Collection<Integer> children1 = new LinkedList<Integer>(forest.getChildren(oldRoot));
-		Collection<String> edges1 = new LinkedList<String>(forest.getChildEdges(oldRoot));
+		Collection<Integer> oldRootChildren = new LinkedList<Integer>(forest.getChildren(fromRootId));
+		Collection<String> oldRootEdges = new LinkedList<String>(forest.getChildEdges(fromRootId));
 		
-		for (String e: edges1){
+		for (String e: oldRootEdges){
 			forest.removeEdge(e, false);
 		}
 		
-		for (int child: children1){
-			String newEdge=createEdge(newRoot, child);
-			forest.addEdge(newEdge, newRoot, child);
+		for (int child: oldRootChildren){
+			String newEdge=createEdge(intoRootId, child);
+			forest.addEdge(newEdge, intoRootId, child);
 		}
-		forest.removeVertex(oldRoot);
+		forest.removeVertex(fromRootId);
 
 		scheduleTransition();
 	}
 
 	@Override
-	public void union(int leaf1, int leaf2, int root, int child1, int child2) {
-		pick(null,leaf1, leaf2);
-		if (forest.containsVertex(root)==false){
-			forest.addVertex(root);
+	public void union(int leaf1Id, int leaf2Id, int newRootId, int childRootId1, int childRootId2) {
+		pick(null,leaf1Id, leaf2Id);
+		if (forest.containsVertex(newRootId)==false){
+			forest.addVertex(newRootId);
 		}
-		forest.addEdge(createEdge(root, child1), root, child1);
-		forest.addEdge(createEdge(root, child2), root, child2);
+		forest.addEdge(createEdge(newRootId, childRootId1), newRootId, childRootId1);
+		forest.addEdge(createEdge(newRootId, childRootId2), newRootId, childRootId2);
 		scheduleTransition();
 	}
 	

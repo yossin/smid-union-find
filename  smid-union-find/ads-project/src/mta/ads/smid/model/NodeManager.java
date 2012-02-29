@@ -168,19 +168,15 @@ class NodeManager{
 	}
 	
 	// link sons of root into a different node (by it's Id) 
-	List<Integer> upLink(int intoNodeId, Root from) throws IUFkForestException{
-		//TODO: replace this if AMIR approves using lists..
-		List<Integer> linkedSons = new LinkedList<Integer>();
+	void upLink(int intoNodeId, Root from) throws IUFkForestException{
 		// up-link (son->parent): link sons to their new root 
 		for (int i=0;i<from.getNumberOfSons();i++){
 			int sonId = from.getSonId(i);
-			linkedSons.add(sonId);
 			NonRoot nonRoot = getNonRoot(sonId);
 			nonRoot.parentId=intoNodeId;
 		}
 		// dispose 'old' root
 		disposeRoot(from.name);
-		return linkedSons;
 	}
 
 

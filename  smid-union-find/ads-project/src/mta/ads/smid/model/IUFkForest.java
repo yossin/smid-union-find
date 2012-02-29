@@ -1,7 +1,5 @@
 package mta.ads.smid.model;
 
-import java.util.List;
-
 import mta.ads.smid.model.IUFkForestException.NameOutOfRangeException;
 import mta.ads.smid.model.NodeManager.Leaf;
 import mta.ads.smid.model.NodeManager.Node;
@@ -84,13 +82,13 @@ public class IUFkForest extends Observable<IUFkEvent>{
 	 */
 	private Root unionCase1(int intoLeaf, int fromLeaf, Root into, Root from) throws IUFkForestException{
 		// up-link (son->root): link sons to their new root 
-		List<Integer> childList = nodeManager.upLink(into.getId(), from);
+		nodeManager.upLink(into.getId(), from);
 		// down-link (root->son): link root to new sons 
 		for (int i=0;i<from.getNumberOfSons();i++){
 			into.addSon(from.getSonId(i));
 		}
 		// notify listeners
-		dispatcher.union(fromLeaf, intoLeaf, from.getId(), into.getId(), childList);
+		dispatcher.union(fromLeaf, intoLeaf, from.getId(), into.getId());
 		// add statistics
 		statistics.performUnionCase1();
 
@@ -146,9 +144,9 @@ public class IUFkForest extends Observable<IUFkEvent>{
 	private Root unionCase3(int intoFirstSonLeaf, int fromLeaf, Root intoFirstSon, Root from) throws IUFkForestException{
 		int intoId = intoFirstSon.getSonId(0);
 		// up-link (son->root): link sons to their new root 
-		List<Integer> childList = nodeManager.upLink(intoId, from);
+		nodeManager.upLink(intoId, from);
 		// notify listeners
-		dispatcher.union(fromLeaf, intoFirstSonLeaf, from.getId(), intoId, childList);
+		dispatcher.union(fromLeaf, intoFirstSonLeaf, from.getId(), intoId);
 		// add statistics
 		statistics.performUnionCase3();
 
