@@ -90,7 +90,7 @@ public class IUFkForest extends Observable<IUFkEvent>{
 		// notify listeners
 		dispatcher.union(fromLeaf, intoLeaf, from.getId(), into.getId());
 		// add statistics
-		statistics.performUnionCase1();
+		statistics.increaseUnionCase1();
 
 		return into;
 	}
@@ -121,7 +121,7 @@ public class IUFkForest extends Observable<IUFkEvent>{
 		// notify listeners
 		dispatcher.union(leaf1, leaf2, t.getId(), root1.getId(), root2.getId());
 		// add statistics
-		statistics.performUnionCase2(height);
+		statistics.increaseUnionCase2(height);
 
 		return t;
 	}
@@ -148,11 +148,10 @@ public class IUFkForest extends Observable<IUFkEvent>{
 		// notify listeners
 		dispatcher.union(fromLeaf, intoFirstSonLeaf, from.getId(), intoId);
 		// add statistics
-		statistics.performUnionCase3();
+		statistics.increaseUnionCase3();
 
 		return intoFirstSon;
 	}
-	
 	
 	
 	/**
