@@ -7,8 +7,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * File Reader Wrapper
+ * <br>the reader is used for parsing 'union-operation' files
+ * <br>this is a private class for that package.
+ * 
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
 class FileReader{
+	/**
+	 * buffered reader for reading lines
+	 */
 	final BufferedReader reader;
+	/**
+	 * @param file input file
+	 */
 	FileReader(File file){
 		try {
 			this.reader=new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -16,6 +30,9 @@ class FileReader{
 			throw new RuntimeException(e);
 		}
 	}
+	/**
+	 * @return line, or null when reaching EOL
+	 */
 	String readLine(){
 		try {
 			return reader.readLine();
@@ -24,6 +41,9 @@ class FileReader{
 		}
 	}
 	
+	/**
+	 * close the file
+	 */
 	void close(){
 		try {
 			reader.close();

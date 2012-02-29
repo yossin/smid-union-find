@@ -9,8 +9,21 @@ import java.io.OutputStreamWriter;
 
 import mta.ads.smid.Constants;
 
+/**
+ * File Writer Wrapper
+ * <br>the writer is used for writing 'union-operation' ant their result into an output file.
+ * 
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
 public class OutputWriter {
+	/**
+	 * buffered writer for writing lines into a file
+	 */
 	final private BufferedWriter writer;
+	/**
+	 * @param file output file
+	 */
 	public OutputWriter(File file){
 		try {
 			this.writer=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
@@ -18,6 +31,10 @@ public class OutputWriter {
 			throw new RuntimeException(e);
 		}
 	}
+	/**
+	 * write a line into the output file
+	 * @param line output line
+	 */
 	public void writeLine(String line){
 		try {
 			writer.write(line+Constants.NEW_LINE);
@@ -26,6 +43,9 @@ public class OutputWriter {
 		}
 	}
 	
+	/**
+	 * close the file
+	 */
 	public void close(){
 		try {
 			writer.close();
