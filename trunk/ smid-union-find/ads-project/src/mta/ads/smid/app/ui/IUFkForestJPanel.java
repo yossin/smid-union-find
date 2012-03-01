@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,7 +22,6 @@ import edu.uci.ics.jung.graph.DelegateTree;
 import edu.uci.ics.jung.visualization.DefaultVisualizationModel;
 import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.RenderContext;
-import edu.uci.ics.jung.visualization.VisualizationModel;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse.Mode;
@@ -36,28 +33,94 @@ import edu.uci.ics.jung.visualization.picking.PickedState;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import edu.uci.ics.jung.visualization.util.Animator;
 
-public class IUFkForestJPanel extends JPanel implements IUFkEvent{
+/**
+ * Graphic JPanel for visualizing a union find forest.
+ * <br> the graph is displayed using JUNG framework
+ * 
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
+public class IUFkForestJPanel extends JPanel {
 	private static final long serialVersionUID = -4239061624657394397L;
+	/**
+	 * forest for displaying on panel. 
+	 * <br>vertexes are integers, edges are strings
+	 */
 	private DelegateForest<Integer,String> forest = null;
+    /**
+     * union find k-forest
+     * <br><b>note: k could be changed</b>
+     */
     private IUFkForest iufkForest;
+    /**
+     * union-find event
+     */
+    final private IUFkEventImpl iufkEvent;
+    /**
+     * visualization viewer
+	 * <br>vertexes are integers, edges are strings
+     */
     final private VisualizationViewer<Integer,String> viewer;
+    /**
+     * tree layout
+     */
     private TreeLayout<Integer,String> layout = null;
+    /**
+     * union model for receiving events from UI
+     */
     final private IUFkForestUnionModel unionModel;
-	final private MultiPickedState<Integer> multiPickedState;
+    /**
+     * timer for scheduling drawing events
+     */
     private Timer timer = new Timer();
+    /**
+     * k-tree size
+     */
     private int k;
     
+    /**
+     * Union Model Interface for displaying UI events
+     * 
+     * @author Yossi Naor & Yosi Zilberberg
+     *
+     */
     public static interface IUFkForestUnionModel{
+    	/**
+    	 * Union Event
+    	 * @param r first leaf name 
+    	 * @param s second leaf name
+    	 * @throws IUFkForestException
+    	 */
     	void union(int r, int s) throws IUFkForestException;
+    	/**
+    	 * Initialize Event
+    	 * @param n number of elements
+    	 */
     	void initialize(int n);
     }
+    /**
+     * Union Model Implementation for displaying UI events
+     * <br>receive requests from UI and pass into model
+     * 
+     * @author Yossi Naor & Yosi Zilberberg
+     *
+     */
     public class IUFkForestUnionModelImpl implements IUFkForestUnionModel{
+		/**
+		 * 
+		 */
 		private IUFkForestUnionModelImpl(){}
+		/* (non-Javadoc)
+		 * @see mta.ads.smid.app.ui.IUFkForestJPanel.IUFkForestUnionModel#union(int, int)
+		 */
 		public void union(int r, int s) throws IUFkForestException{
 			if (iufkForest != null){
 				iufkForest.union(r, s);
 			}
 		}
+		/* (non-Javadoc)
+		 * @see mta.ads.smid.app.ui.IUFkForestJPanel.IUFkForestUnionModel#initialize(int)
+		 */
 		@Override
 		public void initialize(int n) {
 			initializeForest(n);
@@ -66,8 +129,70 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
     }
     
     
+    /**
+	 * Union Model Implementation for displaying model union events
+	 * <br>receive events from UI and draw them
+	 * 
+	 * @author Yossi Naor & Yosi Zilberberg
+	 *
+	 */
+	private class IUFkEventImpl implements IUFkEvent{
+	
+		/* (non-Javadoc)
+		 * @see mta.ads.smid.model.IUFkEvent#union(int, int, int, int)
+		 */
+		@Override
+		public void union(int fromLeafId, int intoLeafId, int fromRootId, int intoRootId) {
+			pick(fromLeafId, intoLeafId);
+			
+			Collection<Integer> oldRootChildren = new LinkedList<Integer>(forest.getChildren(fromRootId));
+			Collection<String> oldRootEdges = new LinkedList<String>(forest.getChildEdges(fromRootId));
+			
+			for (String e: oldRootEdges){
+				forest.removeEdge(e, false);
+			}
+			
+			for (int child: oldRootChildren){
+				String newEdge=createEdge(intoRootId, child);
+				forest.addEdge(newEdge, intoRootId, child);
+			}
+			forest.removeVertex(fromRootId);
+	
+			scheduleTransition();
+		}
+	
+		/* (non-Javadoc)
+		 * @see mta.ads.smid.model.IUFkEvent#union(int, int, int, int, int)
+		 */
+		@Override
+		public void union(int leaf1Id, int leaf2Id, int newRootId, int childRootId1, int childRootId2) {
+			pick(leaf1Id, leaf2Id);
+			if (forest.containsVertex(newRootId)==false){
+				forest.addVertex(newRootId);
+			}
+			forest.addEdge(createEdge(newRootId, childRootId1), newRootId, childRootId1);
+			forest.addEdge(createEdge(newRootId, childRootId2), newRootId, childRootId2);
+			scheduleTransition();
+		}
+	
+	}
+	/**
+     * Vertex color transformer:
+     * <br><u>assign the following colors for vertexes</u>
+     * <ul>
+     * <li>yellow for a picked vertex</li>
+     * <li>green for a <i>Leaf</i></li>
+     * <li>cyan for a <i>Root</i></li>
+     * <li>red for a <i>NonRoot</i></li>
+     * </ul> 
+     * @author Yossi Naor & Yosi Zilberberg
+     *
+     */
     private class VertexColorTransformer implements Transformer<Integer, Paint>{
 
+		/* (non-Javadoc)
+		 * @see org.apache.commons.collections15.Transformer#transform(java.lang.Object)
+		 */
 		@Override
 		public Paint transform(Integer id) {
 			if (viewer.getPickedVertexState().isPicked(id)){
@@ -86,19 +211,23 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
 		}
     	
     }
-
     
+    /**
+     * Create an Improved Union-Find k-tree Panel
+     * @param multiPickedState multi picked state for sharing picked vertexes with other panels
+     * @param k k-tree size
+     * @param n elements number
+     */
     public IUFkForestJPanel(MultiPickedState<Integer> multiPickedState, int k, int n){
     	super(new BorderLayout());
     	this.k=k;
-    	this.multiPickedState=multiPickedState;
     	unionModel = new IUFkForestUnionModelImpl();
+    	iufkEvent = new IUFkEventImpl();
     	forest = new DelegateForest<Integer,String>();
     	layout = new  TreeLayout<Integer,String>(forest);
-    	VisualizationModel<Integer,String> model = new DefaultVisualizationModel<Integer,String>(layout);
-    	
-        viewer = new VisualizationViewer<Integer,String>(model);
-        Renderer<Integer, String> renderer = viewer .getRenderer();
+        viewer = new VisualizationViewer<Integer,String>(new DefaultVisualizationModel<Integer,String>(layout));
+
+        Renderer<Integer, String> renderer = viewer.getRenderer();
 		renderer.getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
 		
         RenderContext<Integer,String> renderContext = viewer.getRenderContext();
@@ -110,21 +239,29 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
         viewer.setGraphMouse(graphMouse);
 
         viewer.setPickedVertexState(multiPickedState);
-        
         graphMouse.setMode(Mode.PICKING);
        
-
     	add(new GraphZoomScrollPane(viewer));
         initializeForest(n);
     }
     
+    /**
+     * "Factory method" create a new instance of IUFkForest 
+     * <br>and register this instance as an Observer for IUFkEvent
+     * @param n the number of elements
+     */
     private void createIUFkForest(int n){
     	if (iufkForest != null){
-    		iufkForest.removeObserver(this);
+    		iufkForest.removeObserver(iufkEvent);
     	}
         iufkForest = new IUFkForest(k, n);
-        iufkForest.addObserver(this);
+        iufkForest.addObserver(iufkEvent);
     }
+    
+    /**
+     * Initialize a simple forest with n elements linked to n roots.
+     * @param n the number of elements
+     */
     private void initializeForest(int n){
     	createIUFkForest(n);
     	forest = new DelegateForest<Integer,String>();
@@ -139,10 +276,21 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
     	}
     	scheduleTransition();
     }
+    
+    /**
+     * Create an edge connecting 2 vertexes
+     * <br>edge name is: v1-v2. for example 0-1 (for: v0=0, v1=1)
+     * @param v1 parent vertex
+     * @param v2 son vertex
+     * @return edge name
+     */
     private static String createEdge(int v1, int v2){
     	return new StringBuilder().append(v1).append("-").append(v2).toString();
     }
     
+    /**
+     * schedule transition
+     */
     private void scheduleTransition(){
    		timer.cancel();
    		timer = new Timer();
@@ -154,74 +302,45 @@ public class IUFkForestJPanel extends JPanel implements IUFkEvent{
 		}, 200);
     }
     
+    /**
+     * print transition
+     */
     private synchronized void paintTransition(){
-    	TreeLayout<Integer,String> newLayout = new  TreeLayout<Integer,String>(forest);
+    	TreeLayout<Integer,String> newLayout = new TreeLayout<Integer,String>(forest);
     	LayoutTransition<Integer,String> layoutTransition = new LayoutTransition<Integer,String>(viewer, layout, newLayout);
     	Animator animator = new Animator(layoutTransition);
     	animator.start();
     	this.layout=newLayout;
     }
     
-    private void pick(List<Integer> children, Integer ...v){
+    /**
+     * pick vertexes
+     * @param vertexes vertex list to pick
+     */
+    private void pick(int ... vertexes){
     	PickedState<Integer> pickedState = viewer.getRenderContext().getPickedVertexState();
 		pickedState.clear();
-    	for (int x:v){
-    		pickedState.pick(x, true);
-    	}
-    	if (children != null){
-	    	for (int x:children){
-	    		pickedState.pick(x, true);
-	    	}
+    	for (int vertex :vertexes){
+    		pickedState.pick(vertex, true);
     	}
     }
 
+	/**
+	 * initialize forest
+	 * @param k k-size
+	 * @param n element number
+	 */
 	public void initializeForest(int k, int n){
 		this.k=k;
 		initializeForest(n);
 	}
-
-	@Override
-	public void union(int fromLeafId, int intoLeafId, int fromRootId, int intoRootId) {
-		pick(null, fromLeafId, intoLeafId);
-		
-		Collection<Integer> oldRootChildren = new LinkedList<Integer>(forest.getChildren(fromRootId));
-		Collection<String> oldRootEdges = new LinkedList<String>(forest.getChildEdges(fromRootId));
-		
-		for (String e: oldRootEdges){
-			forest.removeEdge(e, false);
-		}
-		
-		for (int child: oldRootChildren){
-			String newEdge=createEdge(intoRootId, child);
-			forest.addEdge(newEdge, intoRootId, child);
-		}
-		forest.removeVertex(fromRootId);
-
-		scheduleTransition();
-	}
-
-	@Override
-	public void union(int leaf1Id, int leaf2Id, int newRootId, int childRootId1, int childRootId2) {
-		pick(null,leaf1Id, leaf2Id);
-		if (forest.containsVertex(newRootId)==false){
-			forest.addVertex(newRootId);
-		}
-		forest.addEdge(createEdge(newRootId, childRootId1), newRootId, childRootId1);
-		forest.addEdge(createEdge(newRootId, childRootId2), newRootId, childRootId2);
-		scheduleTransition();
-	}
 	
+	/**
+	 * getter for union model
+	 * @return union model
+	 */
 	public IUFkForestUnionModel getUnionModel() {
 		return unionModel;
 	}
-	
-	public Set<Integer> getPiked(){
-		return viewer.getRenderContext().getPickedVertexState().getPicked();
-	}
-	
-	public MultiPickedState<Integer> getMultiPickedState(){
-		return multiPickedState;
-	}
-
 
 }
