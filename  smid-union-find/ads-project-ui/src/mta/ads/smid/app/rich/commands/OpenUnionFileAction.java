@@ -13,11 +13,28 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 
 
+/**
+ * Open union file
+ * 
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
 public class OpenUnionFileAction extends Action {
 
-    private final IUFkForestsManager manager = IUFkForestsManager.getInstance();
+    /**
+     * workbench window
+     */
     private final IWorkbenchWindow window;
+
+    /**
+     * forest manager, to delegate action
+     */
+    private final IUFkForestsManager manager = IUFkForestsManager.getInstance();
     
+    /**
+     * @param text
+     * @param window
+     */
     public OpenUnionFileAction(String text, IWorkbenchWindow window) {
         super(text);
         this.window = window;
@@ -28,6 +45,9 @@ public class OpenUnionFileAction extends Action {
     }
     
 
+    /**
+     * @return union file selected from opened dialog (null if there was no selection)
+     */
     private File getUnionFile(){
     	FileDialog fd = new FileDialog(window.getShell(), SWT.OPEN);
     	String[] extensions = {"*.*"};
@@ -44,6 +64,9 @@ public class OpenUnionFileAction extends Action {
 		return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.action.Action#run()
+     */
     public void run() {
     	File unionFile = getUnionFile();
     	if (unionFile == null){

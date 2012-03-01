@@ -8,12 +8,28 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 
 
+/**
+ * Union command
+ * 
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
 public class UnionAction extends Action {
 
+    /**
+     * workbench window
+     */
     private final IWorkbenchWindow window;
-    
+
+    /**
+     * forest manager, to delegate action
+     */
     private final IUFkForestsManager manager = IUFkForestsManager.getInstance();
 
+    /**
+     * @param text
+     * @param window
+     */
     public UnionAction(String text, IWorkbenchWindow window) {
         super(text);
         this.window = window;
@@ -24,6 +40,9 @@ public class UnionAction extends Action {
         setImageDescriptor(mta.ads.smid.app.rich.Activator.getImageDescriptor("/icons/union.jpg"));
     }
     
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.action.Action#run()
+     */
     public void run() {
     	try {
 			manager.union();
