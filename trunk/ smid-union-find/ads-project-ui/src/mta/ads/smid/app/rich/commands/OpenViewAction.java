@@ -24,12 +24,33 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 
 
+/**
+ * Open tree view action
+ * 
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
 public class OpenViewAction extends Action {
 	
+	/**
+     * workbench window
+	 */
 	private final IWorkbenchWindow window;
-	private int instanceNum = 0;
+	/**
+	 * view id
+	 */
 	private final String viewId;
+	/**
+	 * view instance number
+	 */
+	private int instanceNum = 0;
 	
+	
+	/**
+	 * @param window
+	 * @param label
+	 * @param viewId
+	 */
 	public OpenViewAction(IWorkbenchWindow window, String label, String viewId) {
 		this.window = window;
 		this.viewId = viewId;
@@ -42,11 +63,12 @@ public class OpenViewAction extends Action {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.action.Action#run()
+	 */
 	public void run() {
 		if(window != null) {	
 			try {
-
-				
 	            final Shell dialogShell = new Shell(window.getShell(), SWT.PRIMARY_MODAL | SWT.SHEET);
 	            dialogShell.setLayout(new GridLayout());
 	            
@@ -68,7 +90,7 @@ public class OpenViewAction extends Action {
 	    		kText.setText("2");
 	    		
 	    		l = new Label(top, SWT.WRAP |SWT.CENTER);
-	    		l.setText("(2 <= k <= 10)");
+	    		l.setText("(k >= 2)");
 	    		
 
 	            

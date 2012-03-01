@@ -9,12 +9,28 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 
 
+/**
+ * Perform union sequence
+ * 
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
 public class UnionSequenceAction extends Action {
 
+    /**
+     * workbench window
+     */
     private final IWorkbenchWindow window;
 
+    /**
+     * forest manager, to delegate action
+     */
     private final IUFkForestsManager manager = IUFkForestsManager.getInstance();
 
+    /**
+     * @param text
+     * @param window
+     */
     public UnionSequenceAction(String text, IWorkbenchWindow window) {
         super(text);
         this.window = window;
@@ -25,6 +41,9 @@ public class UnionSequenceAction extends Action {
         setImageDescriptor(Activator.getImageDescriptor("/icons/union-sequence.jpg"));
     }
     
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.action.Action#run()
+     */
     public void run() {
     	try {
 			manager.unionSequence();
