@@ -25,12 +25,38 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
+/**
+ * 
+ * View for displaying union history
+ * 
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
 public class UnionHistoryView extends ViewPart {
+	/**
+	 * view id
+	 */
 	public static final String ID = "ads-project-ui.unionHistoryView";
+    /**
+     * forest manager, to delegate action
+     */
     private final IUFkForestsManager manager = IUFkForestsManager.getInstance();
+    /**
+     * UI list viewer
+     */
     private ListViewer listViewer;
+	/**
+	 * union list, to displayed in the list viewer
+	 */
 	final Vector<UnionPair> unionList = createUnions1();
 
+	/**
+	 * create union list example
+	 * <br>eager union for making the shortest tree, in 2-trees. 
+	 * @param k k-tree size
+	 * @param n number of elements
+	 * @return union sequence
+	 */
 	private static Vector<UnionPair> createUnions(int k, int n) {
 		Vector<UnionPair> unions = new Vector<UnionPair>();
 		k=k-1;
@@ -62,6 +88,9 @@ public class UnionHistoryView extends ViewPart {
 		return unions;
 	}
 
+	/**
+	 * @return
+	 */
 	private static Vector<UnionPair> createUnions(){
 		Vector<UnionPair> list = new Vector<UnionPair>();
 		for (int i=0;i<10; i+=2){
@@ -71,6 +100,9 @@ public class UnionHistoryView extends ViewPart {
 		return list;
 	}
 	
+	/**
+	 * @return union list example
+	 */
 	private static Vector<UnionPair> createUnions1(){
 		Vector<UnionPair> list = new Vector<UnionPair>();
 		list.add(new UnionPair(0, 1));
@@ -93,27 +125,38 @@ public class UnionHistoryView extends ViewPart {
 		return list;
 	}
 	
-	class ListDynamicProxyClass implements InvocationHandler
-	{
-	  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
-	  {
-	    try {
-	    	
-	      Object result = method.invoke(unionList, args);
-	      listViewer.refresh();
-	      listViewer.setSelection(null);
-		    return result;
-	    } catch (InvocationTargetException e) {
-	      throw e.getTargetException();
-	    } catch (Exception e) {
-	      throw e;
-	    }
-	  }
+	/**
+	 * dynamic proxy that will bw used for refreshing the union history list
+	 * 
+	 * @author Yossi Naor & Yosi Zilberberg
+	 *
+	 */
+	class ListDynamicProxyClass implements InvocationHandler {
+		  /* (non-Javadoc)
+		 * @see java.lang.reflect.InvocationHandler#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])
+		 */
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+			try {
+				Object result = method.invoke(unionList, args);
+				listViewer.refresh();
+				listViewer.setSelection(null);
+				return result;
+			} catch (InvocationTargetException e) {
+				throw e.getTargetException();
+			} catch (Exception e) {
+				throw e;
+			}
+		}
 	}
 
 	
 	
-	private java.util.List<?> createDynamicProxy(){
+	/**
+	 * factory method for creating a list dynamic proxy
+	 * <br>union history list will be updated
+	 * @return
+	 */
+	private List<?> createDynamicProxy(){
 		InvocationHandler handler = new ListDynamicProxyClass();
 		Class<?>[] interfaces ={List.class};
 		ClassLoader loader = getClass().getClassLoader();
@@ -121,6 +164,9 @@ public class UnionHistoryView extends ViewPart {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
+	 */
 	public void createPartControl(Composite parent) {
 
 		listViewer = new ListViewer(parent, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
@@ -167,9 +213,6 @@ public class UnionHistoryView extends ViewPart {
 	          return element.toString();
 	        }
 	      });
-	      
-	      
-		
 	}
 	
 	
