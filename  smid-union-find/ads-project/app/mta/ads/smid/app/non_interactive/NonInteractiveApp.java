@@ -8,9 +8,23 @@ import mta.ads.smid.app.util.UnionPair;
 import mta.ads.smid.app.util.UnionPairReader;
 
 
+/**
+ * Non Interactove application
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
 public class NonInteractiveApp implements Application{
+	/**
+	 * maximal k-tree size
+	 */
 	private final int maxK;
+	/**
+	 * input file
+	 */
 	private final File in;
+	/**
+	 * output file
+	 */
 	private final File out;
 	public NonInteractiveApp(int maxK, File in, File out){
 		this.maxK=maxK;
@@ -20,6 +34,11 @@ public class NonInteractiveApp implements Application{
 		}
 		this.out=out;
 	}
+	/**
+	 * generate output file header
+	 * @param n number of elements
+	 * @return output header string
+	 */
 	private String generateHeader(int n){
 		StringBuilder builder = new StringBuilder();
 		builder.append(n).append("(x),")
@@ -29,6 +48,9 @@ public class NonInteractiveApp implements Application{
 		}
 		return builder.toString();
 	}
+	/* (non-Javadoc)
+	 * @see mta.ads.smid.app.Application#run()
+	 */
 	public void run(){
 		OutputWriter writer = new OutputWriter(out);
 		try {
