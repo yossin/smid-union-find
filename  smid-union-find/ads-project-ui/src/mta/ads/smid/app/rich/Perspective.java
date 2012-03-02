@@ -7,6 +7,10 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
+/**
+ * @author Yossi Naor & Yosi Zilberberg
+ *
+ */
 public class Perspective implements IPerspectiveFactory {
 
 	/**
