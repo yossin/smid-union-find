@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -146,8 +147,8 @@ public class IUFkForestDemoPanel extends JPanel implements IUFkEvent{
     }
 
 	@Override
-	public void union(int oldLeaf, int newLeaf, int oldRoot, int newRoot, List<Integer> children) {
-		//pick(children, oldLeaf, newLeaf, oldRoot, newRoot);
+	public void union(int oldLeaf, int newLeaf, int oldRoot, int newRoot) {
+		List<Integer> children = new LinkedList<Integer>(forest.getChildren(oldRoot));
 		pick(null, oldLeaf, newLeaf);
 		for (int child : children){
 			forest.removeEdge(child);
