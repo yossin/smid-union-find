@@ -1,4 +1,4 @@
-package mta.ads.smid.model;
+package mta.ads.smid.model.nm;
 
 
 
@@ -9,7 +9,7 @@ package mta.ads.smid.model;
  * @author Yossi Naor & Yosi Zilberberg
  *
  */
-class NodeManager{
+public class NodeManager{
 	/**
 	 * node array. it's size is (n*7)/3+1;
 	 * @uml.property  name="nodes"
@@ -42,156 +42,6 @@ class NodeManager{
 	final private static int NULL_ID=-1;
 	
 	/**
-	 * <i>Node</i> interface managing k-tree node data structure.
-	 * <u>implementations are:</u>
-	 * <ul>
-	 * <li>Root</il>
-	 * <li>NonRoot</il>
-	 * <li>Leaf</il>
-	 * </ul>
-	 * @author Yossi Naor & Yosi Zilberberg
-	 *
-	 */
-	static interface Node {}
-	/**
-	 * <i>NonRoot</i> element for managing k-tree non root data structure.  <br>a <i>NonRoot</i> element implement <i>Node</i> interface and contains a parent. <br>the parent can be replaced only by NodeManager
-	 * @author  Yossi Naor & Yosi Zilberberg
-	 */
-	static class NonRoot implements Node {
-		/**
-		 * parent id
-		 * @uml.property  name="parentId"
-		 */
-		private int parentId;
-		/**
-		 * @param parentId parent id
-		 */
-		NonRoot(int parentId) {
-			this.parentId = parentId;
-		}
-		/**
-		 * @return  parent id
-		 * @uml.property  name="parentId"
-		 */
-		int getParentId() {
-			return parentId;
-		}
-	}
-	/**
-	 * <i>Leaf</i> element for managing k-tree leaf data structure.
-	 * <br>a leaf element extends <i>NonRoot</i> element.
-	 * <br>it contains the name of the leaf. once the name is set it cannot be changed.
-	 * @author Yossi Naor & Yosi Zilberberg
-	 *
-	 */
-	static class Leaf extends NonRoot{
-		/**
-		 * the name of the leaf
-		 */
-		final int name;
-		/**
-		 * @param name the name of the leaf
-		 * @param parentId parent id
-		 */
-		Leaf(int name, int parentId) {
-			super(parentId);
-			this.name=name;
-		}
-		/* (non-Javadoc)
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			StringBuilder out = new StringBuilder();
-			out.append("[Leaf: name=").append(name)
-			.append("]");
-			return out.toString();
-		}
-	}
-	/**
-	 * <i>Root</i> element for managing a k-tree root data structure. <br>a <i>Root</i> element implements <i>Node</i> interface.
-	 * @author  Yossi Naor & Yosi Zilberberg
-	 */
-	class Root implements Node{
-		/**
-		 * once set it cannot be changed
-		 * @uml.property  name="id"
-		 */
-		final private int id;
-		/**
-		 * once set it cannot be changed
-		 */
-		final int height;
-		/**
-		 * once set it cannot be changed
-		 */
-		final int name;
-		/**
-		 * an array of sons. the size of the array cannot be changed. 
-		 * <br> the sons can be manipulated only by Root / NodeManaged
-		 */
-		final private int sonsId[];
-		/**
-		 * the number of sons in sonsId array. initialized with 0
-		 * @uml.property  name="numberOfSons"
-		 */
-		private int numberOfSons=0;
-
-		/**
-		 * sonsId array is initialized with k elements (the default value is 0)
-		 * @param id the root id
-		 * @param name the name of the root
-		 * @param height the height of the root
-		 */
-		Root(int id, int name, int height){
-			this.id=id;
-			this.name=name;
-			this.height=height;
-			this.sonsId=new int[k];
-		}
-		/**
-		 * @param sonId son id to be added into sonId array
-		 */
-		void addSon(int sonId){
-			sonsId[numberOfSons++]=sonId;
-		}
-		/**
-		 * Get a son by index (from sonsId array) 
-		 * @param index in the sonsId array for the requested son 
-		 * @return sonId that matches the index in sonsId array
-		 */
-		int getSonId(int index) {
-			return sonsId[index];
-		}
-		/**
-		 * @return  the number of sons stored in the array
-		 * @uml.property  name="numberOfSons"
-		 */
-		int getNumberOfSons() {
-			return numberOfSons;
-		}
-		/**
-		 * @return  the id of the root
-		 * @uml.property  name="id"
-		 */
-		int getId() {
-			return id;
-		}
-		/* (non-Javadoc)
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			StringBuilder out = new StringBuilder();
-			out.append("[Root: id=").append(id)
-				.append(", name=").append(name)
-				.append(", height=").append(height)
-				.append(", numberOfSons=").append(numberOfSons)
-				.append("]");
-			return out.toString();
-		}
-	}
-	/**
 	 * NodeManager Constructor 
 	 * <br><u>implementation highlights:</u>
 	 * <ul>
@@ -209,7 +59,7 @@ class NodeManager{
 	 * @param k the k-tree size
 	 * @param n the number of elements to manage
 	 */
-	NodeManager(int k, int n) {
+	public NodeManager(int k, int n) {
 		this.k=k;
 		int maxNodes=(n*7)/3+1;
 		nodes=new Node[maxNodes];
@@ -219,7 +69,7 @@ class NodeManager{
 		// create a leaf which is linked into it's root
 		for (int i=0; i<n; i++){
 			int rootId=n+i;
-			Root root = new Root(rootId, i,1);
+			Root root = new Root(rootId, i,1,k);
 			Leaf leaf = new Leaf(i,rootId);
 			root.addSon(i);
 			nodes[rootId]=root;
@@ -243,7 +93,7 @@ class NodeManager{
 	 * @param name requested <i>Root</i> name
 	 * @return <i>Root</i> element
 	 */
-	Root getRoot(int name){
+	public Root getRoot(int name){
 		int id = rootIds[name];
 		if (id == NULL_ID) {
 			return null;
@@ -258,7 +108,7 @@ class NodeManager{
 	 * @param name requested <i>Leaf</i> name
 	 * @return <i>Leaf</i> element
 	 */
-	Leaf getLeaf(int name){
+	public Leaf getLeaf(int name){
 		return (Leaf)nodes[name];
 	}
 	/**
@@ -267,7 +117,7 @@ class NodeManager{
 	 * @param name requested <i>NonRoot</i> id
 	 * @return <i>NonRoot</i> element
 	 */
-	NonRoot getNonRoot(int id){
+	private NonRoot getNonRoot(int id){
 		return (NonRoot)nodes[id];
 	}
 	
@@ -277,7 +127,7 @@ class NodeManager{
 	 * @param name requested <i>Node</i> id
 	 * @return <i>Node</i> element
 	 */
-	Node getNode(int id){
+	public Node getNode(int id){
 		return nodes[id];
 	}
 
@@ -291,7 +141,7 @@ class NodeManager{
 	 * <br><b>at this point we assume that id is in range</b>
 	 * @param name requested <i>Root</i> name to be disposed
 	 */
-	void disposeRoot(int name){
+	private void disposeRoot(int name){
 		int id=rootIds[name];
 		nodes[id]=null;
 		availableNodes[id]=firstAvailableNode;
@@ -313,9 +163,9 @@ class NodeManager{
 	 * @param rootChild2 second root child to be converted into <i>NonRoot</i> child
 	 * @return the created root
 	 */
-	Root createRoot(int name, int height, Root rootChild1, Root rootChild2){
+	public Root createRoot(int name, int height, Root rootChild1, Root rootChild2){
 		int rootId = firstAvailableNode;
-		Root root = new Root(rootId, name, height);
+		Root root = new Root(rootId, name, height, k);
 		addRootAsChild(rootChild1, root);
 		addRootAsChild(rootChild2, root);
 		rootIds[name]=rootId;
@@ -361,7 +211,7 @@ class NodeManager{
 	 * @param intoNodeId the destination node 
 	 * @param from the source root, that it's sons are transfered
 	 */
-	void upLink(int intoNodeId, Root from) {
+	public void upLink(int intoNodeId, Root from) {
 		// up-link (son->parent): link sons to their new root 
 		for (int i=0;i<from.getNumberOfSons();i++){
 			int sonId = from.getSonId(i);

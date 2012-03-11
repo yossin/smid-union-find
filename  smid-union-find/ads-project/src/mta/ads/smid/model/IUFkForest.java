@@ -1,10 +1,11 @@
 package mta.ads.smid.model;
 
 import mta.ads.smid.model.IUFkForestException.NameOutOfRangeException;
-import mta.ads.smid.model.NodeManager.Leaf;
-import mta.ads.smid.model.NodeManager.Node;
-import mta.ads.smid.model.NodeManager.NonRoot;
-import mta.ads.smid.model.NodeManager.Root;
+import mta.ads.smid.model.nm.Leaf;
+import mta.ads.smid.model.nm.Node;
+import mta.ads.smid.model.nm.NodeManager;
+import mta.ads.smid.model.nm.NonRoot;
+import mta.ads.smid.model.nm.Root;
 import mta.ads.smid.patterns.Observable;
 
 
