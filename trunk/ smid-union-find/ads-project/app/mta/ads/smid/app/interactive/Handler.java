@@ -14,6 +14,8 @@ public class Handler extends MultiIUFkForests{
 	
 	/**
 	 * our UI (the console)
+	 * @uml.property  name="ui"
+	 * @uml.associationEnd  multiplicity="(1 1)"
 	 */
 	final UI ui;
 	/**

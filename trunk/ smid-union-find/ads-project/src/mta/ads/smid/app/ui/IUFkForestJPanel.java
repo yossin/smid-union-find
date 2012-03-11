@@ -43,39 +43,50 @@ import edu.uci.ics.jung.visualization.util.Animator;
 public class IUFkForestJPanel extends JPanel {
 	private static final long serialVersionUID = -4239061624657394397L;
 	/**
-	 * forest for displaying on panel. 
-	 * <br>vertexes are integers, edges are strings
+	 * forest for displaying on panel.  <br>vertexes are integers, edges are strings
+	 * @uml.property  name="forest"
+	 * @uml.associationEnd  multiplicity="(1 1)"
 	 */
 	private DelegateForest<Integer,String> forest = null;
     /**
-     * union find k-forest
-     * <br><b>note: k could be changed</b>
-     */
+	 * union find k-forest <br><b>note: k could be changed</b>
+	 * @uml.property  name="iufkForest"
+	 * @uml.associationEnd  
+	 */
     private IUFkForest iufkForest;
     /**
-     * union-find event
-     */
+	 * union-find event
+	 * @uml.property  name="iufkEvent"
+	 * @uml.associationEnd  multiplicity="(1 1)" inverse="this$0:mta.ads.smid.app.ui.IUFkForestJPanel$IUFkEventImpl"
+	 */
     final private IUFkEventImpl iufkEvent;
     /**
-     * visualization viewer
-	 * <br>vertexes are integers, edges are strings
-     */
+	 * visualization viewer <br>vertexes are integers, edges are strings
+	 * @uml.property  name="viewer"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
     final private VisualizationViewer<Integer,String> viewer;
     /**
-     * tree layout
-     */
+	 * tree layout
+	 * @uml.property  name="layout"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
     private TreeLayout<Integer,String> layout = null;
     /**
-     * union model for receiving events from UI
-     */
+	 * union model for receiving events from UI
+	 * @uml.property  name="unionModel"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
     final private IUFkForestUnionModel unionModel;
     /**
-     * timer for scheduling drawing events
-     */
+	 * timer for scheduling drawing events
+	 * @uml.property  name="timer"
+	 */
     private Timer timer = new Timer();
     /**
-     * k-tree size
-     */
+	 * k-tree size
+	 * @uml.property  name="k"
+	 */
     private int k;
     
     /**
@@ -337,7 +348,8 @@ public class IUFkForestJPanel extends JPanel {
 	
 	/**
 	 * getter for union model
-	 * @return union model
+	 * @return  union model
+	 * @uml.property  name="unionModel"
 	 */
 	public IUFkForestUnionModel getUnionModel() {
 		return unionModel;

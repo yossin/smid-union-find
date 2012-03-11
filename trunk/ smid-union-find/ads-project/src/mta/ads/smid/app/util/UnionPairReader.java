@@ -21,6 +21,8 @@ import java.util.regex.Pattern;
 public class UnionPairReader implements Iterable<UnionPair>{
 	/**
 	 * file reader
+	 * @uml.property  name="reader"
+	 * @uml.associationEnd  multiplicity="(1 1)"
 	 */
 	final private FileReader reader;
 	/**
@@ -41,13 +43,13 @@ public class UnionPairReader implements Iterable<UnionPair>{
 	
 	/**
 	 * non static Iterator class, to be used by union pair reader only
-	 * 
-	 * @author Yossi Naor & Yosi Zilberberg
-	 *
+	 * @author  Yossi Naor & Yosi Zilberberg
 	 */
 	public class UnionPairIterator implements Iterator<UnionPair>{
 		/**
 		 * last parsed pair
+		 * @uml.property  name="pair"
+		 * @uml.associationEnd  
 		 */
 		private UnionPair pair;
 		/**

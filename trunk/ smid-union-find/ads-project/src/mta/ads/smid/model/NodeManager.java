@@ -12,25 +12,28 @@ package mta.ads.smid.model;
 class NodeManager{
 	/**
 	 * node array. it's size is (n*7)/3+1;
+	 * @uml.property  name="nodes"
+	 * @uml.associationEnd  multiplicity="(0 -1)"
 	 */
 	private final Node nodes[];
 	/**
-	 * available list IDs (indexes) of nodes in nodes array.  
-	 * <br>unavailable value: NULL_ID = (-1)
-	 * <br>available value: points to the next available position (index)
+	 * available list IDs (indexes) of nodes in nodes array.   <br>unavailable value: NULL_ID = (-1) <br>available value: points to the next available position (index)
+	 * @uml.property  name="availableNodes" multiplicity="(0 -1)" dimension="1"
 	 */
 	private final int availableNodes[];
 	/**
-	 * first available node (index) in the available list 
-	 * <br>NULL_ID = (-1) if none
+	 * first available node (index) in the available list  <br>NULL_ID = (-1) if none
+	 * @uml.property  name="firstAvailableNode"
 	 */
 	private int firstAvailableNode;
 	/**
 	 * Cache root IDs (indexes) by name
+	 * @uml.property  name="rootIds" multiplicity="(0 -1)" dimension="1"
 	 */
 	private final int rootIds[];
 	/**
 	 * k-tree size
+	 * @uml.property  name="k"
 	 */
 	private final int k;
 	/**
@@ -51,15 +54,13 @@ class NodeManager{
 	 */
 	static interface Node {}
 	/**
-	 * <i>NonRoot</i> element for managing k-tree non root data structure. 
-	 * <br>a <i>NonRoot</i> element implement <i>Node</i> interface and contains a parent.
-	 * <br>the parent can be replaced only by NodeManager
-	 * @author Yossi Naor & Yosi Zilberberg
-	 *
+	 * <i>NonRoot</i> element for managing k-tree non root data structure.  <br>a <i>NonRoot</i> element implement <i>Node</i> interface and contains a parent. <br>the parent can be replaced only by NodeManager
+	 * @author  Yossi Naor & Yosi Zilberberg
 	 */
 	static class NonRoot implements Node {
 		/**
-		 * parent id 
+		 * parent id
+		 * @uml.property  name="parentId"
 		 */
 		private int parentId;
 		/**
@@ -69,7 +70,8 @@ class NodeManager{
 			this.parentId = parentId;
 		}
 		/**
-		 * @return parent id
+		 * @return  parent id
+		 * @uml.property  name="parentId"
 		 */
 		int getParentId() {
 			return parentId;
@@ -107,14 +109,13 @@ class NodeManager{
 		}
 	}
 	/**
-	 * <i>Root</i> element for managing a k-tree root data structure.
-	 * <br>a <i>Root</i> element implements <i>Node</i> interface.
-	 * @author Yossi Naor & Yosi Zilberberg
-	 *
+	 * <i>Root</i> element for managing a k-tree root data structure. <br>a <i>Root</i> element implements <i>Node</i> interface.
+	 * @author  Yossi Naor & Yosi Zilberberg
 	 */
 	class Root implements Node{
 		/**
 		 * once set it cannot be changed
+		 * @uml.property  name="id"
 		 */
 		final private int id;
 		/**
@@ -132,6 +133,7 @@ class NodeManager{
 		final private int sonsId[];
 		/**
 		 * the number of sons in sonsId array. initialized with 0
+		 * @uml.property  name="numberOfSons"
 		 */
 		private int numberOfSons=0;
 
@@ -162,13 +164,15 @@ class NodeManager{
 			return sonsId[index];
 		}
 		/**
-		 * @return the number of sons stored in the array
+		 * @return  the number of sons stored in the array
+		 * @uml.property  name="numberOfSons"
 		 */
 		int getNumberOfSons() {
 			return numberOfSons;
 		}
 		/**
-		 * @return the id of the root
+		 * @return  the id of the root
+		 * @uml.property  name="id"
 		 */
 		int getId() {
 			return id;

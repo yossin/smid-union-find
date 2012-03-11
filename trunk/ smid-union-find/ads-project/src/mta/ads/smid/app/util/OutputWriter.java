@@ -19,6 +19,7 @@ import mta.ads.smid.Constants;
 public class OutputWriter {
 	/**
 	 * buffered writer for writing lines into a file
+	 * @uml.property  name="writer"
 	 */
 	final private BufferedWriter writer;
 	/**

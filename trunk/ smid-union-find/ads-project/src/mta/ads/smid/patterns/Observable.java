@@ -14,7 +14,14 @@ import java.lang.reflect.Type;
  */
 public class Observable<T> {
 
+    /**
+	 * @uml.property  name="m_eventDispatcher"
+	 */
     private T m_eventDispatcher = null;
+    /**
+	 * @uml.property  name="m_observers"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
     private final ObserverPool<T> m_observers = new ObserverPool<T>();
 
     /**

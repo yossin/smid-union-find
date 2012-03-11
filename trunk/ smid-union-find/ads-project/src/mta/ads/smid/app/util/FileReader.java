@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 class FileReader{
 	/**
 	 * buffered reader for reading lines
+	 * @uml.property  name="reader"
 	 */
 	final BufferedReader reader;
 	/**
