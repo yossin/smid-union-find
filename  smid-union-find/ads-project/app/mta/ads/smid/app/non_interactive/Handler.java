@@ -15,6 +15,8 @@ import mta.ads.smid.model.IUFkForestException;
 class Handler extends MultiIUFkForests{
 	/**
 	 * output writer for writing union result into an output file
+	 * @uml.property  name="writer"
+	 * @uml.associationEnd  multiplicity="(1 1)"
 	 */
 	final private OutputWriter writer;
 	/**

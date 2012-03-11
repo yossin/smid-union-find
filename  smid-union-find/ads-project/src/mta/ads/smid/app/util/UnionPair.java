@@ -6,11 +6,11 @@ package mta.ads.smid.app.util;
  */
 public class UnionPair implements Comparable<UnionPair>{
 	/**
-	 * 
+	 * @uml.property  name="x"
 	 */
 	public final int x;
 	/**
-	 * 
+	 * @uml.property  name="y"
 	 */
 	public final int y;
 	/**

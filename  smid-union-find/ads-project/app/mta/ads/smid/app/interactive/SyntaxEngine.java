@@ -23,14 +23,20 @@ class SyntaxEngine{
 	final static String HANDLER_PREFIX="iuf";
 	/**
 	 * engine
+	 * @uml.property  name="engine"
+	 * @uml.associationEnd  multiplicity="(1 1)"
 	 */
 	final JexlEngine engine;
 	/**
 	 * context map
+	 * @uml.property  name="context"
+	 * @uml.associationEnd  multiplicity="(1 1)"
 	 */
 	final JexlContext context;
 	/**
 	 * handler
+	 * @uml.property  name="handler"
+	 * @uml.associationEnd  multiplicity="(1 1)"
 	 */
 	final Handler handler;
 	/**

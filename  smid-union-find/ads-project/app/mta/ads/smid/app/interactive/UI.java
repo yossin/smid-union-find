@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 class UI {
 	/**
 	 * buffered reader that points into System.in
+	 * @uml.property  name="reader"
 	 */
 	final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	/**

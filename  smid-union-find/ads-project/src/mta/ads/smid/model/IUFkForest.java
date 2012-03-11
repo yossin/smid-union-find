@@ -18,22 +18,30 @@ import mta.ads.smid.patterns.Observable;
 public class IUFkForest extends Observable<IUFkEvent>{
 	/**
 	 * size of the k-tree
+	 * @uml.property  name="k"
 	 */
 	private final int k;
 	/**
 	 * number of elements
+	 * @uml.property  name="n"
 	 */
 	private final int n;
 	/**
-	 * data structure for managing tree node elements 
+	 * data structure for managing tree node elements
+	 * @uml.property  name="nodeManager"
+	 * @uml.associationEnd  multiplicity="(1 1)"
 	 */
 	private final NodeManager nodeManager;
 	/**
-	 * union & find statistics 
+	 * union & find statistics
+	 * @uml.property  name="statistics"
+	 * @uml.associationEnd  multiplicity="(1 1)"
 	 */
 	private final Statistics statistics;
 	/**
-	 * for managing union events 
+	 * for managing union events
+	 * @uml.property  name="dispatcher"
+	 * @uml.associationEnd  multiplicity="(1 1)"
 	 */
 	private final IUFkEvent dispatcher;
 
@@ -276,21 +284,24 @@ public class IUFkForest extends Observable<IUFkEvent>{
 	
 	
 	/**
-	 * @return statistics
+	 * @return  statistics
+	 * @uml.property  name="statistics"
 	 */
 	public Statistics getStatistics() {
 		return statistics;
 	}
 	
 	/**
-	 * @return k (the size of k-tree)
+	 * @return  k (the size of k-tree)
+	 * @uml.property  name="k"
 	 */
 	public int getK() {
 		return k;
 	}
 	
 	/**
-	 * @return n (the number of managed elements)
+	 * @return  n (the number of managed elements)
+	 * @uml.property  name="n"
 	 */
 	public int getN() {
 		return n;

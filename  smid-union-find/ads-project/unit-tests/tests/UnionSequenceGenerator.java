@@ -13,6 +13,9 @@ import mta.ads.smid.Constants;
 
 public class UnionSequenceGenerator extends TestCase{
 	
+	/**
+	 * @uml.property  name="dir"
+	 */
 	String dir="D:/Users/Yos/Workspaces/mta/ads-project/tests/";
 	
 	private void uGroup(int k, int n, BufferedWriter writer) throws IOException{

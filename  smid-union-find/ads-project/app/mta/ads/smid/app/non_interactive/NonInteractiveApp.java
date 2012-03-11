@@ -16,14 +16,17 @@ import mta.ads.smid.app.util.UnionPairReader;
 public class NonInteractiveApp implements Application{
 	/**
 	 * maximal k-tree size
+	 * @uml.property  name="maxK"
 	 */
 	private final int maxK;
 	/**
 	 * input file
+	 * @uml.property  name="in"
 	 */
 	private final File in;
 	/**
 	 * output file
+	 * @uml.property  name="out"
 	 */
 	private final File out;
 	public NonInteractiveApp(int maxK, File in, File out){

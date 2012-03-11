@@ -16,6 +16,9 @@ import java.util.List;
  */
 class ObserverPool<T> implements InvocationHandler {
 
+    /**
+	 * @uml.property  name="m_pool"
+	 */
     private List<T> m_pool = new ArrayList<T>();
 
 

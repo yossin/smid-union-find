@@ -15,15 +15,19 @@ public abstract class MultiIUFkForests{
 	
 	/**
 	 * forest list
+	 * @uml.property  name="forests"
+	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="mta.ads.smid.model.IUFkForest"
 	 */
 	final List<IUFkForest> forests = new LinkedList<IUFkForest>();
 	/**
 	 * minimal k is set into 2
+	 * @uml.property  name="minK"
 	 */
 	private int minK=2;
 	
 	/**
 	 * maximal k is set into 10
+	 * @uml.property  name="maxK"
 	 */
 	private int maxK=10;
 	/**
@@ -87,13 +91,15 @@ public abstract class MultiIUFkForests{
 		return result;
 	}
 	/**
-	 * @return maxK
+	 * @return  maxK
+	 * @uml.property  name="maxK"
 	 */
 	protected int getMaxK() {
 		return maxK;
 	}
 	/**
-	 * @return minK
+	 * @return  minK
+	 * @uml.property  name="minK"
 	 */
 	protected int getMinK() {
 		return minK;

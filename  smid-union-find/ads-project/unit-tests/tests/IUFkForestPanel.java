@@ -33,9 +33,25 @@ import edu.uci.ics.jung.visualization.util.Animator;
 
 public class IUFkForestPanel extends JPanel implements IUFkEvent{
 	private static final long serialVersionUID = -4239061624657394397L;
+	/**
+	 * @uml.property  name="forest"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
 	private DelegateForest<Integer,Integer> forest = null;
+    /**
+	 * @uml.property  name="iufkForest"
+	 * @uml.associationEnd  
+	 */
     private IUFkForest iufkForest;
+    /**
+	 * @uml.property  name="viewer"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
     private VisualizationViewer<Integer,Integer> viewer = null;
+    /**
+	 * @uml.property  name="layout"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
     private TreeLayout<Integer,Integer> layout = null;
 	
     public IUFkForestPanel(int width, int height){

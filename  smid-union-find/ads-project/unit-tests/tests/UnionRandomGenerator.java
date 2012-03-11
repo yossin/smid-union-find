@@ -12,6 +12,9 @@ import mta.ads.smid.Constants;
 
 public class UnionRandomGenerator extends TestCase{
 	
+	/**
+	 * @uml.property  name="dir"
+	 */
 	String dir="D:/Users/Yos/Workspaces/mta/ads-project/tests/";
 	
 	

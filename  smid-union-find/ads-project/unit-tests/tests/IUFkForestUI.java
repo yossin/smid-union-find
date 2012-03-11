@@ -41,11 +41,30 @@ import edu.uci.ics.jung.visualization.util.Animator;
 public class IUFkForestUI extends JApplet implements IUFkEvent{
 
 	private static final long serialVersionUID = 4710225191268505805L;
+	/**
+	 * @uml.property  name="forest"
+	 * @uml.associationEnd  
+	 */
 	private DelegateForest<Integer,Integer> forest = null;
+    /**
+	 * @uml.property  name="viewer"
+	 * @uml.associationEnd  
+	 */
     private VisualizationViewer<Integer,Integer> viewer = null;
+    /**
+	 * @uml.property  name="layout"
+	 * @uml.associationEnd  
+	 */
     private TreeLayout<Integer,Integer> layout = null;
+    /**
+	 * @uml.property  name="iufkForest"
+	 * @uml.associationEnd  
+	 */
     private IUFkForest iufkForest;
 
+    /**
+	 * @uml.property  name="timer"
+	 */
     private Timer timer;
 
     private void createForest(int n, int k){
