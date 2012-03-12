@@ -91,13 +91,13 @@ public class IUFkForest extends Observable<IUFkEvent>{
 	 */
 	private Root unionCase1(int intoLeaf, int fromLeaf, Root into, Root from) throws IUFkForestException{
 		// up-link (son->root): link sons to their new root 
-		nodeManager.upLink(into.getId(), from);
+		nodeManager.upLink(into.id, from);
 		// down-link (root->son): link root to new sons 
 		for (int i=0;i<from.getNumberOfSons();i++){
 			into.addSon(from.getSonId(i));
 		}
 		// notify listeners
-		dispatcher.union(fromLeaf, intoLeaf, from.getId(), into.getId());
+		dispatcher.union(fromLeaf, intoLeaf, from.id, into.id);
 		// add statistics
 		statistics.increaseUnionCase1();
 
@@ -128,7 +128,7 @@ public class IUFkForest extends Observable<IUFkEvent>{
 		// create a new root that contains r,s as sons
 		Root t = nodeManager.createRoot(name, height, root1, root2);
 		// notify listeners
-		dispatcher.union(leaf1, leaf2, t.getId(), root1.getId(), root2.getId());
+		dispatcher.union(leaf1, leaf2, t.id, root1.id, root2.id);
 		// add statistics
 		statistics.increaseUnionCase2(height);
 
@@ -155,7 +155,7 @@ public class IUFkForest extends Observable<IUFkEvent>{
 		// up-link (son->root): link sons to their new root 
 		nodeManager.upLink(intoId, from);
 		// notify listeners
-		dispatcher.union(fromLeaf, intoFirstSonLeaf, from.getId(), intoId);
+		dispatcher.union(fromLeaf, intoFirstSonLeaf, from.id, intoId);
 		// add statistics
 		statistics.increaseUnionCase3();
 
