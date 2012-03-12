@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="model" size="732,454" id="" metadata="uml2-1.0" initialized="true" zoom="1.5" tag="10" key="32303037303533312D3130206164732D70726F6A656374">
+  <children xsi:type="editmodel:ClassEditModel" name="NodeManager" location="524,45" size="134,171" id="mta.ads.smid.model.nm/NodeManager">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="97,108">
+      <children xsi:type="editmodel:MethodEditModel" name="NodeManager" id="mta.ads.smid.model.nm/NodeManager#NodeManager(II)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="createRoot" id="mta.ads.smid.model.nm/NodeManager#createRoot(IILmta.ads.smid.model.nm.Root;Lmta.ads.smid.model.nm.Root;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getLeaf" id="mta.ads.smid.model.nm/NodeManager#getLeaf(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getNode" id="mta.ads.smid.model.nm/NodeManager#getNode(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getRoot" id="mta.ads.smid.model.nm/NodeManager#getRoot(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="upLink" id="mta.ads.smid.model.nm/NodeManager#upLink(ILmta.ads.smid.model.nm.Root;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="mta.ads.smid.model.nm/Node@nodes+mta.ads.smid.model.nm/NodeManager@" source="//@children.0" target="//@children.1" targetEnd="//@children.0/@sourceConnections.0/@children.2" label="//@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="67,171" id="mta.ads.smid.model.nm/Node@nodes+mta.ads.smid.model.nm/NodeManager@|mta.ads.smid.model.nm/NodeManager#" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="nodes" location="67,0" id="mta.ads.smid.model.nm/Node@nodes+mta.ads.smid.model.nm/NodeManager@|mta.ads.smid.model.nm/Node#nodes" multiplicityLabel="//@children.0/@sourceConnections.0/@children.2/@children.1" roleLabel="//@children.0/@sourceConnections.0/@children.2/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - nodes" location="597,233" size="40,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="579,233" size="4,14" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="mta.ads.smid.model.nm/NodeManager@nodeManager+mta.ads.smid.model/IUFkForest@" source="//@children.0" target="//@children.5" targetEnd="//@children.0/@sourceConnections.1/@children.2" label="//@children.0/@sourceConnections.1/@children.0" sourceEnd="//@children.0/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="nodeManager" location="0,76" id="mta.ads.smid.model.nm/NodeManager@nodeManager+mta.ads.smid.model/IUFkForest@|mta.ads.smid.model.nm/NodeManager#nodeManager" attachSource="true" multiplicityLabel="//@children.0/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.0/@sourceConnections.1/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - nodeManager" location="441,99" size="76,14" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="511,127" size="6,14" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="117,76" id="mta.ads.smid.model.nm/NodeManager@nodeManager+mta.ads.smid.model/IUFkForest@|mta.ads.smid.model/IUFkForest#"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.0/@sourceConnections.0" name="Node" location="524,255" size="134,57" id="mta.ads.smid.model.nm/Node">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" name="IUFkEvent" location="345,227" size="117,113" id="mta.ads.smid.model/IUFkEvent">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="56,36">
+      <children xsi:type="editmodel:MethodEditModel" name="union" id="mta.ads.smid.model/IUFkEvent#union(IIIII)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="union" id="mta.ads.smid.model/IUFkEvent#union(IIII)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="mta.ads.smid.model/IUFkEvent@dispatcher+mta.ads.smid.model/IUFkForest@" source="//@children.2" target="//@children.5" targetEnd="//@children.2/@sourceConnections.0/@children.2" label="//@children.2/@sourceConnections.0/@children.0" sourceEnd="//@children.2/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="dispatcher" location="58,0" id="mta.ads.smid.model/IUFkEvent@dispatcher+mta.ads.smid.model/IUFkForest@|mta.ads.smid.model/IUFkEvent#dispatcher" attachSource="true" multiplicityLabel="//@children.2/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - dispatcher" location="409,205" size="61,14" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="389,205" size="6,14" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="58,153" id="mta.ads.smid.model/IUFkEvent@dispatcher+mta.ads.smid.model/IUFkForest@|mta.ads.smid.model/IUFkForest#"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="IUFkForestException" location="80,255" size="172,81" id="mta.ads.smid.model/IUFkForestException" runTimeClassModel="IUFkForestException(Ljava.lang.String;),mta.ads.smid.model.IUFkForestException.NameOutOfRangeException">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="128,18">
+      <children xsi:type="editmodel:MethodEditModel" name="IUFkForestException" id="mta.ads.smid.model/IUFkForestException#IUFkForestException(Ljava.lang.String;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="219,69"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Statistics" location="84,45" size="164,207" id="mta.ads.smid.model/Statistics" runTimeClassModel="increaseUnionCase2(I),increaseDirectFind(),Statistics(IIII),increaseRecursiveFind(),maxHeight,increaseUnionCase3(),increaseUnionCase1(),toString()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="86,18">
+      <children xsi:type="editmodel:AttributeEditModel" name="maxHeight" id="mta.ads.smid.model/Statistics#maxHeight"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="141,126">
+      <children xsi:type="editmodel:MethodEditModel" name="Statistics" id="mta.ads.smid.model/Statistics#Statistics(IIII)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="increaseDirectFind" id="mta.ads.smid.model/Statistics#increaseDirectFind()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="increaseRecursiveFind" id="mta.ads.smid.model/Statistics#increaseRecursiveFind()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="increaseUnionCase1" id="mta.ads.smid.model/Statistics#increaseUnionCase1()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="increaseUnionCase2" id="mta.ads.smid.model/Statistics#increaseUnionCase2(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="increaseUnionCase3" id="mta.ads.smid.model/Statistics#increaseUnionCase3()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="toString" id="mta.ads.smid.model/Statistics#toString()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="mta.ads.smid.model/Statistics@statistics+mta.ads.smid.model/IUFkForest@" source="//@children.4" target="//@children.5" targetEnd="//@children.4/@sourceConnections.0/@children.2" label="//@children.4/@sourceConnections.0/@children.0" sourceEnd="//@children.4/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="statistics" location="164,76" id="mta.ads.smid.model/Statistics@statistics+mta.ads.smid.model/IUFkForest@|mta.ads.smid.model/Statistics#statistics" attachSource="true" multiplicityLabel="//@children.4/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.4/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - statistics" location="255,99" size="53,14" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="255,127" size="6,14" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,76" id="mta.ads.smid.model/Statistics@statistics+mta.ads.smid.model/IUFkForest@|mta.ads.smid.model/IUFkForest#"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@sourceConnections.1 //@children.2/@sourceConnections.0 //@children.4/@sourceConnections.0" name="IUFkForest" location="345,45" size="117,153" id="mta.ads.smid.model/IUFkForest">
+    <children xsi:type="editmodel:CompartmentEditModel" size="42,36">
+      <children xsi:type="editmodel:AttributeEditModel" name="k" id="mta.ads.smid.model/IUFkForest#k"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="n" id="mta.ads.smid.model/IUFkForest#n"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="81,54">
+      <children xsi:type="editmodel:MethodEditModel" name="IUFkForest" id="mta.ads.smid.model/IUFkForest#IUFkForest(II)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="find" id="mta.ads.smid.model/IUFkForest#find(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="union" id="mta.ads.smid.model/IUFkForest#union(II)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=1;Product=eUML2" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>
