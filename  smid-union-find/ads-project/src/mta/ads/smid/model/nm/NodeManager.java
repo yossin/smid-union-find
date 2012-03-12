@@ -195,9 +195,9 @@ public class NodeManager{
 	 * @param parentRoot parent root for holding the child root
 	 */
 	private void addRootAsChild(Root childRoot, Root parentRoot){
-		int childRootId = childRoot.getId();
+		int childRootId = childRoot.id;
 		parentRoot.addSon(childRootId);
-		nodes[childRootId] = new NonRoot(parentRoot.getId());
+		nodes[childRootId] = new NonRoot(parentRoot.id);
 		rootIds[childRoot.name]=NULL_ID;
 	}
 	

@@ -9,7 +9,7 @@ public class Root implements Node{
 	 * once set it cannot be changed
 	 * @uml.property  name="id"
 	 */
-	final private int id;
+	public final int id;
 	/**
 	 * once set it cannot be changed
 	 */
@@ -62,13 +62,6 @@ public class Root implements Node{
 	 */
 	public int getNumberOfSons() {
 		return numberOfSons;
-	}
-	/**
-	 * @return  the id of the root
-	 * @uml.property  name="id"
-	 */
-	public int getId() {
-		return id;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
