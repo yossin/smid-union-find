@@ -1,0 +1,51 @@
+<project name="ads-project">
+	<property name="export.dir" value="D:/Users/Yos/Learning/2012A-קורס מתקדם במבני נתונים/project/_submit_package" />
+	<property name="export.dir.source" value="${export.dir}/source/ads-project" />
+	<property name="export.dir.cli" value="${export.dir}/cli" />
+	<property name="export.dir.soft" value="${export.dir}/soft" />
+	
+	<target name="export-sources">
+		<copy todir="${export.dir.source}" >
+			<fileset dir=".">
+				<include name="**/**.*"/>
+				<exclude name=".svn"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="build-cli">
+		<copy todir="${export.dir.cli}">
+			<fileset dir=".">
+				<include name="lib/*.*"/>
+				<exclude name=".svn"/>
+			</fileset>
+			<fileset dir=".">
+				<include name="samples/*.*"/>
+				<exclude name=".svn"/>
+			</fileset>
+			<fileset dir="batch">
+				<include name="*.*"/>
+			</fileset>
+		</copy>
+		<mkdir dir="${export.dir.cli}/output" />
+		<jar destfile="${export.dir.cli}/lib/ads-project.jar" basedir="bin">
+			<exclude name=".svn"/>
+			<exclude name="tests/*.*"/>
+			<include name="**/**.*"/>
+		</jar>
+	</target>
+	
+	<target name="copy-soft" >
+		<copy todir="${export.dir.soft}/eclipse" failonerror="off" includeemptydirs="true">
+			<fileset dir="D:/MySoft/eclipse/oepe-helios-11.1.1.7.2">
+				<include name="**/**.*"/>
+			</fileset>
+		</copy>
+		<copy todir="${export.dir.soft}/eclipse/jre" includeemptydirs="true">
+			<fileset dir="C:/Program Files (x86)/Java/jdk1.6.0_26/jre">
+				<include name="**/**.*"/>
+			</fileset>
+		</copy>
+
+	</target>
+</project>
