@@ -5,4 +5,6 @@ mta.ads.smid.app.non_interactive
 mta.ads.smid.app.ui
 mta.ads.smid.app.util
 mta.ads.smid.model
+mta.ads.smid.model.nm
 mta.ads.smid.patterns
+tests
