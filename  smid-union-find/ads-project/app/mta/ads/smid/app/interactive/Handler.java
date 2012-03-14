@@ -25,6 +25,7 @@ public class Handler extends MultiIUFkForests{
 	public Handler(UI ui){
 		super(10, 2, 2);
 		this.ui=ui;
+		help();
 		initK1(10, 2);
 	}
 	
@@ -90,6 +91,14 @@ public class Handler extends MultiIUFkForests{
 		return this;
 	}
 	/**
+	 * print statistics
+	 * @return the handler for assembling operations
+	 */
+	public Handler statistics(){
+		printStatistics();
+		return this;
+	}
+	/**
 	 * @param n number for elements
 	 * @param k k-tree size (set minK=maxK=k)
 	 * @return the handler for assembling operations
@@ -121,12 +130,15 @@ public class Handler extends MultiIUFkForests{
 	 * @return the handler for assembling operations
 	 */
 	public Handler help(){
+		ui.message("-------------------");
 		ui.message("Avialable Commands:");
 		ui.message("-------------------");
-		ui.message("find(x)    - search for x's root");
-		ui.message("union(x,y) - union x & y. Note: x,y allowed to be leaves");
-		ui.message("help()     - print this H E L P");
-		ui.message("exit()     - terminate this program");
+		ui.message("find(x)       - search for x's root");
+		ui.message("union(x,y)    - union x & y. Note: x,y allowed to be leaves");
+		ui.message("height()      - print the maximal height for each DS");
+		ui.message("statistics()  - print the maximal height for each DS");
+		ui.message("help()        - print this H E L P");
+		ui.message("exit()        - terminate this program");
 		ui.message("initK1(n,k):"); 
 		ui.message("             initialize a DS with n elements: 0,1,...,n-1");
 		ui.message("             each root element is IUF-k size");
@@ -134,6 +146,16 @@ public class Handler extends MultiIUFkForests{
 		ui.message("             initialize several DSs with n elements: 0,1,...,n-1");
 		ui.message("             DSs root element are: IUF-2,...,IUF-maxK size");
 		ui.message("             ** this is the default mode for n=10, maxK=n");
+		ui.message("-----------------");
+		ui.message("Avialable Aliases:");
+		ui.message("-----------------");
+		ui.message("f(x)          - same as find(x)");
+		ui.message("u(x,y)        - same as union(x,y)");
+		ui.message("h()           - same as height()");
+		ui.message("s()           - same as statistics()");
+		ui.message("iK1(n,k)      - same as initK1(n,k)");
+		ui.message("iKs(n,maxK)   - same as initKs(n,maxK)");
+		ui.message("----------------------------------------------------------------");
 		return this;
 	}
 	
@@ -160,6 +182,13 @@ public class Handler extends MultiIUFkForests{
 	 */
 	public Handler h(){
 		return height();
+	}
+	/**
+	 * statistics alias
+	 * @return the handler for assembling operations
+	 */
+	public Handler s(){
+		return statistics();
 	}
 	/**
 	 * initK1 alias
