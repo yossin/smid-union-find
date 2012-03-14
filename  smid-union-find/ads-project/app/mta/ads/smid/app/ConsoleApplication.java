@@ -33,6 +33,7 @@ public class ConsoleApplication {
 	static class ConsoleApplicationArgs{
 		/**
 		 * the maximal k-tree size. operations will be executed for k=2,...,maxK
+		 * for non interactive mode
 		 * <br> the default value is 5
 		 */
 		@Option(name="-maxK", usage="the maximal k-tree size")
@@ -46,11 +47,13 @@ public class ConsoleApplication {
 		@Option(name="-in", usage="union input file")
 		/**
 		 * union instructions file as an input
+		 * for non interactive mode
 		 */
 		File inputFile;
 		@Option(name="-out", usage="union result output file")
 		/**
 		 * output file
+		 * for non interactive mode
 		 * <br>the default is set into inputFile.csv
 		 */
 		File outputFile;
