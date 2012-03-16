@@ -48,8 +48,8 @@ class ObserverPool<T> implements InvocationHandler {
      * @param observerClass The interface class of the observers.
      * @return  The dispatcher which can be used to make calls to all added observers.
      */
-    @SuppressWarnings( "unchecked" )
-    T createEventDispatcher( Class observerClass ) {
+    @SuppressWarnings( { "unchecked", "rawtypes" } )
+    T createEventDispatcher(Class observerClass ) {
         T dispatcher = (T)Proxy.newProxyInstance(
             observerClass.getClassLoader(),
             new Class[] { observerClass },

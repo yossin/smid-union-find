@@ -167,6 +167,7 @@ public class UnionHistoryView extends ViewPart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@SuppressWarnings("unchecked")
 	public void createPartControl(Composite parent) {
 
 		listViewer = new ListViewer(parent, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
