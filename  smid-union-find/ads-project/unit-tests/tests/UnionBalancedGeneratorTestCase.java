@@ -1,55 +1,21 @@
 package tests;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.LinkedList;
-import java.util.Queue;
 
 import junit.framework.TestCase;
-import mta.ads.smid.Constants;
+import mta.ads.smid.app.util.UnionSequenceGenerator;
 
-public class UnionSequenceGenerator extends TestCase{
+public class UnionBalancedGeneratorTestCase extends TestCase{
 	
 	/**
 	 * @uml.property  name="dir"
 	 */
 	String dir="D:/Users/Yos/Workspaces/mta/ads-project/tests/";
 	
-	private void uGroup(int k, int n, BufferedWriter writer) throws IOException{
-		k=k-1;
-		Queue<Integer> q1 = new LinkedList<Integer>();
-		for (int i=0;i<n;i++){
-			q1.add(i);
-		}
-		
-		do {
-			Queue<Integer> q2 = new LinkedList<Integer>();
-			
-			while (q1.isEmpty() == false){
-				int x=q1.poll();
-				q2.add(x);
-				int size=(k<q1.size()?k:q1.size());
-				for (int i=0;i<size;i++){
-					int y=q1.poll();
-					writer.write(x+","+y+Constants.NEW_LINE);
-				}
-			}
-			q1=q2;
-		} while(q1.size()>1);
-
-	}
 	private void generate(int n, int k, String suffix) throws IOException{
 		File file = new File(dir, k+"-balanced-"+suffix+".txt");
-		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-		try {
-			writer.write(n+Constants.NEW_LINE);
-			uGroup(k,n,writer);
-		} finally {
-			writer.close();
-		}
+		UnionSequenceGenerator.generateBalancedFile(k, n, file);
 	}
 	private int p(int x, int y){
 		return (int)Math.pow(x,y);
