@@ -261,18 +261,18 @@ public class IUFkForestUI extends JApplet implements IUFkEvent{
     
     @Override
     public void start() {
-//    	schedule(0, 1);
-//    	schedule(2, 3);
-//    	schedule(4, 5);
-//    	schedule(6, 7);
-//    	schedule(8, 9);
-//
-//    	schedule(0, 2);
-//    	schedule(4, 6);
-//
-//    	schedule(0, 4);
-//
-//    	schedule(0, 8);
+    	schedule(0, 1);
+    	schedule(2, 3);
+    	schedule(4, 5);
+    	schedule(6, 7);
+    	schedule(8, 9);
+
+    	schedule(0, 2);
+    	schedule(4, 6);
+
+    	schedule(0, 4);
+
+    	schedule(0, 8);
 
     	viewer.repaint();
     }
