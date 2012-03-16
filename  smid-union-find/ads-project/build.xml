@@ -1,4 +1,4 @@
-<project name="ads-project">
+<project name="ads-project" default="build-submission-package">
 	<!-- 
 	change according to your local directories
 	1. export dir
@@ -60,7 +60,7 @@
 	</target>
 	
 	<target name="build-cli">
-		<copy todir="${export.dir.cli}">
+		<sync todir="${export.dir.cli}">
 			<fileset dir=".">
 				<include name="lib/*.*"/>
 				<exclude name=".svn"/>
@@ -72,7 +72,7 @@
 			<fileset dir="batch">
 				<include name="*.*"/>
 			</fileset>
-		</copy>
+		</sync>
 		<mkdir dir="${export.dir.cli}/output" />
 		<export-ads-project-jar jarfilename="${export.dir.cli}/lib/ads-project.jar"/>
 	</target>
@@ -124,4 +124,19 @@
 			</fileset>
 		</copy>
 	</target>
+	
+    <target name="build-submission-package">
+    	<!-- 1. programs: cli & graphic -->
+    	<antcall target="build-cli"/>
+    	<antcall target="build-graphic-jre"/>
+    	<!-- 2. sources -->
+    	<antcall target="export-sources"/>
+    	<!-- 3. docs: javadoc & docs-->
+    	<antcall target="copy-docs"/>
+    	<antcall target="create-javadoc"/>
+    	<!-- 4. eclipse soft -->
+		<antcall target="copy-eclipse"/>
+            
+    </target>
+
 </project>
