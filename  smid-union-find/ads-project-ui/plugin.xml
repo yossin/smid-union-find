@@ -87,7 +87,8 @@
       </key>
    </extension>
    <extension
-         id="product"
+         id="ads.mta.iufk.product"
+         name="IUFk Application"
          point="org.eclipse.core.runtime.products">
       <product
             application="ads-project-ui.application"
@@ -103,6 +104,16 @@
          <property
                name="aboutImage"
                value="product_lg.gif">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="ads-project-ui.application">
+         <property
+               name="appName">
          </property>
       </product>
    </extension>

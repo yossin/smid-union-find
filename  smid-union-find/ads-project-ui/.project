@@ -25,21 +25,4 @@
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>project-lib</name>
-			<type>2</type>
-			<locationURI>WORKSPACE_LOC/ads-project/lib</locationURI>
-		</link>
-		<link>
-			<name>project-src</name>
-			<type>2</type>
-			<locationURI>WORKSPACE_LOC/ads-project/src</locationURI>
-		</link>
-		<link>
-			<name>src-1</name>
-			<type>2</type>
-			<location>D:/Users/Yos/Workspaces/mta/ads-project/src</location>
-		</link>
-	</linkedResources>
 </projectDescription>
