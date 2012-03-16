@@ -7,7 +7,7 @@
 	-->
 	<property name="export.dir" value="D:/Users/Yos/Learning/2012A-קורס מתקדם במבני נתונים/project/_submit_package" />
 	<property name="source.doc.dir" value="D:/Users/Yos/Learning/2012A-קורס מתקדם במבני נתונים/project"/>
-	<property name="source.jre.dir" value="C:/Program Files (x86)/Java/jdk1.6.0_26/jre"/>
+	<property name="source.jre.dir" value="C:/Program Files (x86)/Java/jre6"/>
 	<property name="source.eclipse.dir" value="D:/MySoft/eclipse/oepe-juno-12.1.1.0.0"/>
 	
 	
@@ -45,19 +45,27 @@
 		</sequential>
 	</macrodef>
 	
+	<macrodef name="copy-sources">
+		<attribute name="destDir"/>
+		<sequential>
+			<sync todir="@{destDir}/ads-project" >
+				<fileset dir=".">
+					<include name="**/**.*"/>
+					<exclude name=".svn"/>
+				</fileset>
+			</sync>
+			<sync todir="@{destDir}/ads-project-ui" >
+				<fileset dir="../ads-project-ui">
+					<include name="**/**.*"/>
+					<exclude name=".svn"/>
+				</fileset>
+			</sync>
+		</sequential>
+	</macrodef>
+	
 	<target name="export-sources">
-		<sync todir="${export.dir.source}/ads-project" >
-			<fileset dir=".">
-				<include name="**/**.*"/>
-				<exclude name=".svn"/>
-			</fileset>
-		</sync>
-		<sync todir="${export.dir.source}/ads-project-ui" >
-			<fileset dir="../ads-project-ui">
-				<include name="**/**.*"/>
-				<exclude name=".svn"/>
-			</fileset>
-		</sync>
+		<copy-sources destdir="${export.dir.source}"/>
+		<copy-sources destdir="${export.dir.eclipse}/workspace"/>
 	</target>
 	
 	<target name="build-cli">
