@@ -1,18 +1,10 @@
 package tests;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import mta.ads.smid.model.IUFkEvent;
@@ -22,12 +14,9 @@ import edu.uci.ics.jung.algorithms.layout.TreeLayout;
 import edu.uci.ics.jung.graph.DelegateForest;
 import edu.uci.ics.jung.graph.DelegateTree;
 import edu.uci.ics.jung.visualization.DefaultVisualizationModel;
-import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.VisualizationModel;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
-import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
-import edu.uci.ics.jung.visualization.control.ScalingControl;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape.Line;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.layout.LayoutTransition;
@@ -67,7 +56,6 @@ public class IUFkForestDemoPanel extends JPanel implements IUFkEvent{
     	forest = new DelegateForest<Integer, Integer>();
     	layout = new  TreeLayout<Integer,Integer>(forest);
     	VisualizationModel<Integer,Integer> model = new DefaultVisualizationModel<Integer,Integer>(layout);
-    	Dimension dimension = new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
         viewer = new VisualizationViewer<Integer,Integer>(model);
         viewer .getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
