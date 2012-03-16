@@ -1,0 +1,17 @@
+12// first line is N
+
+// at height of 3 there are x leafs and 2x+1 noeds,
+// create this level:
+0,1
+0,2
+3,4
+3,5
+0,3
+
+6,7
+6,8
+9,10
+9,11
+6,9
+
+0,6
