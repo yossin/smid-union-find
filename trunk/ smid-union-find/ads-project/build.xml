@@ -1,16 +1,62 @@
 <project name="ads-project">
+	<!-- 
+	change according to your local directories
+	1. export dir
+	2. documentation dir
+	3. jre dir
+	-->
 	<property name="export.dir" value="D:/Users/Yos/Learning/2012A-קורס מתקדם במבני נתונים/project/_submit_package" />
-	<property name="export.dir.source" value="${export.dir}/source/ads-project" />
+	<property name="source.doc.dir" value="D:/Users/Yos/Learning/2012A-קורס מתקדם במבני נתונים/project"/>
+	<property name="source.jre.dir" value="C:/Program Files (x86)/Java/jdk1.6.0_26/jre"/>
+
+	
+	<!-- 
+		PLEASE DO NOT CHANGE THE FOLLOWING
+	-->
+	
+	<property name="export.dir.source" value="${export.dir}/source" />
 	<property name="export.dir.cli" value="${export.dir}/cli" />
-	<property name="export.dir.soft" value="${export.dir}/soft" />
+	<property name="export.dir.graphic" value="${export.dir}/graphic" />
+	<property name="export.dir.eclipse" value="${export.dir}/eclipse" />
+	<property name="export.dir.doc" value="${export.dir}/doc" />
+	<property name="export.dir.javadoc" value="${export.dir.doc}/javadoc" />
+	
+	
+	<macrodef name="export-ads-project-jar">
+		<attribute name="jarFileName"/>
+		<sequential>
+			<jar destfile="@{jarFileName}" basedir="bin">
+				<exclude name=".svn"/>
+				<exclude name="tests/*.*"/>
+				<include name="**/**.*"/>
+			</jar>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="copy-jre">
+		<attribute name="destDir"/>
+		<sequential>
+			<copy todir="@{destDir}/jre" includeemptydirs="true">
+				<fileset dir="${source.jre.dir}">
+					<include name="**/**.*"/>
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
 	
 	<target name="export-sources">
-		<copy todir="${export.dir.source}" >
+		<sync todir="${export.dir.source}/ads-project" >
 			<fileset dir=".">
 				<include name="**/**.*"/>
 				<exclude name=".svn"/>
 			</fileset>
-		</copy>
+		</sync>
+		<sync todir="${export.dir.source}/ads-project-ui" >
+			<fileset dir="../ads-project-ui">
+				<include name="**/**.*"/>
+				<exclude name=".svn"/>
+			</fileset>
+		</sync>
 	</target>
 	
 	<target name="build-cli">
@@ -28,24 +74,54 @@
 			</fileset>
 		</copy>
 		<mkdir dir="${export.dir.cli}/output" />
-		<jar destfile="${export.dir.cli}/lib/ads-project.jar" basedir="bin">
-			<exclude name=".svn"/>
-			<exclude name="tests/*.*"/>
-			<include name="**/**.*"/>
-		</jar>
+		<export-ads-project-jar jarfilename="${export.dir.cli}/lib/ads-project.jar"/>
 	</target>
 	
-	<target name="copy-soft" >
-		<copy todir="${export.dir.soft}/eclipse" failonerror="off" includeemptydirs="true">
+	<target name="build-graphic-jre">
+		<copy-jre destdir="${export.dir.graphic}/eclipse"/>
+	</target>
+	
+	<target name="create_ads-project.jar_for_ads-project-ui">
+		<export-ads-project-jar jarfilename="../ads-project-ui/project-lib/ads-project.jar"/>
+	</target>
+	
+	<target name="copy-eclipse" >
+		<copy todir="${export.dir.eclipse}" failonerror="off" includeemptydirs="true">
 			<fileset dir="D:/MySoft/eclipse/oepe-helios-11.1.1.7.2">
 				<include name="**/**.*"/>
 			</fileset>
 		</copy>
-		<copy todir="${export.dir.soft}/eclipse/jre" includeemptydirs="true">
-			<fileset dir="C:/Program Files (x86)/Java/jdk1.6.0_26/jre">
-				<include name="**/**.*"/>
+		<copy-jre destdir="${export.dir.eclipse}"/>
+	</target>
+	
+	<target name="create-javadoc">
+		<javadoc access="private" destdir="${export.dir.javadoc}" 
+			use="true" author="true" version="true">
+			<classpath>
+				<fileset dir="lib">
+					<include name="**"/>
+				</fileset>
+			</classpath>
+			<fileset dir="src">
+				<include name="mta/ads/smid/**"/>
+			</fileset>	
+			<fileset dir="app">
+				<include name="mta/ads/smid/**"/>
+			</fileset>
+			<fileset dir="../ads-project-ui/src">
+				<include name="mta/ads/smid/**"/>
+			</fileset>
+		</javadoc>
+	</target>
+	
+	<target name="copy-docs" >
+		<copy todir="${export.dir.doc}">
+			<fileset dir="${source.doc.dir}">
+				<include name="Smid-UF.pptx"/>
+				<include name="מדריך.docx"/>
+				<include name="project.pdf"/>
+				<include name="CT-1988-06.text.pdf"/>
 			</fileset>
 		</copy>
-
 	</target>
 </project>
