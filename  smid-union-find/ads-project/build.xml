@@ -8,7 +8,8 @@
 	<property name="export.dir" value="D:/Users/Yos/Learning/2012A-קורס מתקדם במבני נתונים/project/_submit_package" />
 	<property name="source.doc.dir" value="D:/Users/Yos/Learning/2012A-קורס מתקדם במבני נתונים/project"/>
 	<property name="source.jre.dir" value="C:/Program Files (x86)/Java/jdk1.6.0_26/jre"/>
-
+	<property name="source.eclipse.dir" value="D:/MySoft/eclipse/oepe-juno-12.1.1.0.0"/>
+	
 	
 	<!-- 
 		PLEASE DO NOT CHANGE THE FOLLOWING
@@ -87,7 +88,7 @@
 	
 	<target name="copy-eclipse" >
 		<copy todir="${export.dir.eclipse}" failonerror="off" includeemptydirs="true">
-			<fileset dir="D:/MySoft/eclipse/oepe-helios-11.1.1.7.2">
+			<fileset dir="${source.eclipse.dir}">
 				<include name="**/**.*"/>
 			</fileset>
 		</copy>
